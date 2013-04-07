@@ -7,3 +7,7 @@
 *.jar
 *.war
 *.ear
+/arkanoid/nbproject/private/
+/arkanoid/build/
+/Arkanoid/dist/
+/arkanoid/dist/
