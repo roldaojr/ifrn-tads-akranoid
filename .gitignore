@@ -1,13 +1,9 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# Auto detect text files and perform LF normalization
+* text=auto
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
+*.class
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+# Package Files #
+*.jar
+*.war
+*.ear
