@@ -17,6 +17,6 @@ public class JogoPanel extends JPanel {
         super.paintComponent(grphcs);
         // Desenhar elementos
         Graphics2D g2 = (Graphics2D) grphcs;
-        cena.Paint(g2);
+        //cena.Paint(g2);
     }
 }

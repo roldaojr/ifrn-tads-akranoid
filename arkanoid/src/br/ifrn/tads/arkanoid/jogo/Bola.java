@@ -8,30 +8,28 @@ public class Bola extends ElementoDaTela {
     private CenaDeJogo cena;
     private int velocidadeX;
     private int velocidadeY;
-    protected int direcao;
-    protected int velocidade;
 
     public Bola(CenaDeJogo c, int i, int i1) {
         super(i, i1, 16, 16);
         cena = c;
-        velocidadeX = 10;
-        velocidadeY = -10;
+        velocidadeX = 20;
+        velocidadeY = -20;
     }
 
-    public int getDirecao() {
-        return direcao;
+    public int getVelocidadeX() {
+        return velocidadeX;
     }
 
-    public void setDirecao(int direcao) {
-        this.direcao = direcao;
+    public void setVelocidadeX(int velocidadeX) {
+        this.velocidadeX = velocidadeX;
     }
 
-    public int getVelocidade() {
-        return velocidade;
+    public int getVelocidadeY() {
+        return velocidadeY;
     }
 
-    public void setVelocidade(int velocidade) {
-        this.velocidade = velocidade;
+    public void setVelocidadeY(int velocidadeY) {
+        this.velocidadeY = velocidadeY;
     }
 
     public void Mover() {
