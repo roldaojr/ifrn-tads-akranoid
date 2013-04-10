@@ -20,7 +20,7 @@ public class CenaDeJogo extends JPanel {
     public CenaDeJogo() {
         super();
         m_timer = new Timer(m_interval, new TimerAction());
-        raquete = new Raquete(this, 0, 0);
+        raquete = new Raquete(100, 300);
         bola = new Bola(this, 0, 0);
         tijolos = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -63,7 +63,31 @@ public class CenaDeJogo extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            bola.Mover();
+            bola.x += bola.getVelocidadeX();
+            bola.y += bola.getVelocidadeY();
+            if(bola.x < 0) {
+                bola.x = 0;
+                bola.setVelocidadeX(-bola.getVelocidadeX());
+            } else if(bola.x > (getWidth() - bola.width)) {
+                bola.x = getWidth() - bola.width;
+                bola.setVelocidadeX(-bola.getVelocidadeX());
+            }
+            if(bola.y < 0) {
+                bola.y = 0;
+                bola.setVelocidadeY(-bola.getVelocidadeY());
+            } else if(bola.y > (getHeight() - bola.height)) {
+                bola.y = getHeight() - bola.height;
+                bola.setVelocidadeY(-bola.getVelocidadeY());
+            }
+            if(bola.intersects(raquete)) {
+                if(raquete.contains(bola.x, bola.y+bola.height)) {
+                    bola.setVelocidadeY(-bola.getVelocidadeY());
+                }
+                /*if() {  || raquete.contains(bola.x, bola.y)
+                    bola.setVelocidadeY(-bola.getVelocidadeY());
+                }*/
+            }
+            //bola.Mover();
             repaint();
         }
     }
