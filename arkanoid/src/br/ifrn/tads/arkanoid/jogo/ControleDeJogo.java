@@ -14,6 +14,7 @@ public class ControleDeJogo {
     }
 
     public void TerminarJogo() {
+      
     }
 
     public void PausarJogo() {
