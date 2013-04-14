@@ -2,55 +2,79 @@ package br.ifrn.tads.arkanoid.jogo;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 public class Bola extends ElementoDaTela {
 
-    private CenaDeJogo cena;
-    private int velocidadeX;
-    private int velocidadeY;
+    private int velocidade;
+    private int direcaoX;
+    private int direcaoY;
 
-    public Bola(CenaDeJogo c, int i, int i1) {
-        super(i, i1, 16, 16);
-        cena = c;
-        velocidadeX = 20;
-        velocidadeY = -20;
+    public Bola(int i, int i1) {
+        super(i, i1, 10, 10);
+        velocidade = 0;
+        direcaoX = 1;
+        direcaoY = -1;
     }
 
-    public int getVelocidadeX() {
-        return velocidadeX;
+    public int getVelocidade() {
+        return velocidade;
     }
 
-    public void setVelocidadeX(int velocidadeX) {
-        this.velocidadeX = velocidadeX;
+    public void setVelocidade(int velocidade) {
+        this.velocidade = velocidade;
     }
 
-    public int getVelocidadeY() {
-        return velocidadeY;
+    public int getDirecaoX() {
+        return direcaoX;
     }
 
-    public void setVelocidadeY(int velocidadeY) {
-        this.velocidadeY = velocidadeY;
+    public void setDirecaoX(int direcaoX) {
+        this.direcaoX = direcaoX;
+    }
+
+    public int getDirecaoY() {
+        return direcaoY;
+    }
+
+    public void setDirecaoY(int direcaoY) {
+        this.direcaoY = direcaoY;
     }
 
     public void Mover() {
-        x += velocidadeX;
-        y += velocidadeY;
-        if(x < 0) {
-            x = 0;
-            velocidadeX = -velocidadeX;
-        } else if(x > (cena.getWidth() - width)) {
-            x = cena.getWidth() - width;
-            velocidadeX = -velocidadeX;
-        }
-        if(y < 0) {
-            y = 0;
-            velocidadeY = -velocidadeY;
-        } else if(y > (cena.getHeight() - height)) {
-            y = cena.getHeight() - height;
-            velocidadeY = -velocidadeY;
+        x += velocidade*direcaoX;
+        y += velocidade*direcaoY;
+    }
+    
+    public boolean Movendo() {
+        if(velocidade > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
     
+    public void Colisao(Rectangle r) {
+        Rectangle2D irect = intersection(r);
+        if(r.intersectsLine(x, y, x+width, y)) { // parte de cima
+            direcaoY = -direcaoY;
+            y += irect.getHeight();
+        } else
+        if(r.intersectsLine(x, y+height, x+width, y+height) ) { // parte de baixo
+            direcaoY = -direcaoY;
+            y -= irect.getHeight();
+        } else
+        if(r.intersectsLine(x, y, x, y+height) ) { // parte esquerda
+            direcaoX = -direcaoX;
+            x += irect.getWidth();
+        } else
+        if(r.intersectsLine(x+width, y, x+width, y+height) ) { // parte direitra
+            direcaoX = -direcaoX;
+            x -= irect.getWidth();
+        }
+    }
+
     @Override
     public void Paint(Graphics2D g) {
         g.setColor(Color.RED);
