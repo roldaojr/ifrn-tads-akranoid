@@ -2,7 +2,6 @@ package br.ifrn.tads.arkanoid.jogo;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
 public class Raquete extends ElementoDaTela {
 

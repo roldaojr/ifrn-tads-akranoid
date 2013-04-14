@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -89,7 +88,6 @@ public class CenaDeJogo extends JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if (bola.getVelocidade() > 0) {
-                bola.setLimites(getWidth(), getHeight());
                 bola.Mover();
                 if (bola.x < 0) {
                     bola.x = 0;
@@ -102,6 +100,7 @@ public class CenaDeJogo extends JPanel {
                     bola.y = 0;
                     bola.setDirecaoY(-bola.getDirecaoY());
                 } else if (bola.y > (getHeight() - bola.height)) {
+                    bola.setVelocidade(0);
                     RedefinirBola();
                 }
                 List<Tijolo> remover = new ArrayList<>();

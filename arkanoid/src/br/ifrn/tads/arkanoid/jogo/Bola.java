@@ -12,7 +12,7 @@ public class Bola extends ElementoDaTela {
     private int direcaoY;
 
     public Bola(int i, int i1) {
-        super(i, i1, 16, 16);
+        super(i, i1, 10, 10);
         velocidade = 0;
         direcaoX = 1;
         direcaoY = -1;
@@ -53,10 +53,6 @@ public class Bola extends ElementoDaTela {
         } else {
             return false;
         }
-    }
-    
-    public void setLimites(int width, int height) {
-        
     }
     
     public void Colisao(Rectangle r) {
