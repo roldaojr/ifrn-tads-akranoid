@@ -1,18 +1,19 @@
 package br.ifrn.tads.arkanoid.jogo;
 
+import br.ifrn.tads.arkanoid.jogo.eventos.ColisionListener;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
-public class Bola extends ElementoDaTela {
+public class Bola extends ElementoDaTela implements ColisionListener {
 
     private int velocidade;
     private int direcaoX;
     private int direcaoY;
 
     public Bola(int i, int i1) {
-        super(i, i1, 10, 10);
+        super(i, i1, 15, 15);
         velocidade = 0;
         direcaoX = 1;
         direcaoY = -1;
@@ -43,33 +44,31 @@ public class Bola extends ElementoDaTela {
     }
 
     public void Mover() {
-        x += velocidade*direcaoX;
-        y += velocidade*direcaoY;
+        x += velocidade * direcaoX;
+        y += velocidade * direcaoY;
     }
-    
+
     public boolean Movendo() {
-        if(velocidade > 0) {
+        if (velocidade > 0) {
             return true;
         } else {
             return false;
         }
     }
-    
-    public void Colisao(Rectangle r) {
-        Rectangle2D irect = intersection(r);
-        if(r.intersectsLine(x, y, x+width, y)) { // parte de cima
+
+    @Override
+    public void ColisionDetected(Rectangle e1, Rectangle e2) {
+        Rectangle2D irect = intersection(e2);
+        if (e2.intersectsLine(x, y, x + width, y)) { // parte de cima
             direcaoY = -direcaoY;
             y += irect.getHeight();
-        } else
-        if(r.intersectsLine(x, y+height, x+width, y+height) ) { // parte de baixo
+        } else if (e2.intersectsLine(x, y + height, x + width, y + height)) { // parte de baixo
             direcaoY = -direcaoY;
             y -= irect.getHeight();
-        } else
-        if(r.intersectsLine(x, y, x, y+height) ) { // parte esquerda
+        } else if (e2.intersectsLine(x, y, x, y + height)) { // parte esquerda
             direcaoX = -direcaoX;
             x += irect.getWidth();
-        } else
-        if(r.intersectsLine(x+width, y, x+width, y+height) ) { // parte direitra
+        } else if (e2.intersectsLine(x + width, y, x + width, y + height)) { // parte direitra
             direcaoX = -direcaoX;
             x -= irect.getWidth();
         }
@@ -80,5 +79,4 @@ public class Bola extends ElementoDaTela {
         g.setColor(Color.RED);
         g.fillOval(this.x, this.y, this.width, this.height);
     }
-    
 }
