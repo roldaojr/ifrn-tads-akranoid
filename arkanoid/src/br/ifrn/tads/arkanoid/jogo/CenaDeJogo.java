@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
+import sun.java2d.loops.DrawGlyphList;
 
 public class CenaDeJogo extends JPanel implements ColisionListener {
 
@@ -164,6 +165,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         Graphics2D g = (Graphics2D) grphcs;
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
+        
         if (ativo) {
             for (Tijolo t : tijolos) {
                 t.Paint(g);
