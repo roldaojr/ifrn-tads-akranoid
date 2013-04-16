@@ -6,9 +6,11 @@ package br.ifrn.tads.arkanoid.gui;
 
 import br.ifrn.tads.arkanoid.jogo.CenaDeJogo;
 import br.ifrn.tads.arkanoid.jogo.ControleDeJogo;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -42,22 +44,24 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         backPanel = new NewJPanel();
         cenaDeJogo = new br.ifrn.tads.arkanoid.jogo.CenaDeJogo();
         JpanelMenu = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        miNovoJogo = new javax.swing.JMenuItem();
+        miCarregarJogo = new javax.swing.JMenuItem();
+        miSalvarJogo = new javax.swing.JMenuItem();
+        miPausar = new javax.swing.JMenuItem();
+        miTerminarJogo = new javax.swing.JMenuItem();
+        miSair = new javax.swing.JMenuItem();
 
         jMenu2.setText("File");
         jMenuBar2.add(jMenu2);
@@ -70,9 +74,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
+        jMenuItem1.setText("jMenuItem1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 204, 0));
+        setTitle("Arkanoid");
         setName("frame"); // NOI18N
+        setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
 
         backPanel.setOpaque(false);
 
@@ -83,7 +91,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         cenaDeJogo.setLayout(cenaDeJogoLayout);
         cenaDeJogoLayout.setHorizontalGroup(
             cenaDeJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 668, Short.MAX_VALUE)
+            .addGap(0, 696, Short.MAX_VALUE)
         );
         cenaDeJogoLayout.setVerticalGroup(
             cenaDeJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,60 +101,30 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         JpanelMenu.setBackground(new java.awt.Color(0, 0, 0));
         JpanelMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         JpanelMenu.setOpaque(false);
+        JpanelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/ARKANOID.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        JpanelMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 219, 90));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
+        JpanelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 219, 197, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        JpanelMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 196, 65));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
+        JpanelMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 300, 197, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
+        JpanelMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 381, 197, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
         jLabel6.setText("jLabel6");
-
-        javax.swing.GroupLayout JpanelMenuLayout = new javax.swing.GroupLayout(JpanelMenu);
-        JpanelMenu.setLayout(JpanelMenuLayout);
-        JpanelMenuLayout.setHorizontalGroup(
-            JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JpanelMenuLayout.createSequentialGroup()
-                .addGroup(JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JpanelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JpanelMenuLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        JpanelMenuLayout.setVerticalGroup(
-            JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JpanelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel4)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel5)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel6)
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
+        JpanelMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 461, 197, -1));
 
         javax.swing.GroupLayout backPanelLayout = new javax.swing.GroupLayout(backPanel);
         backPanel.setLayout(backPanelLayout);
@@ -165,7 +143,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cenaDeJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JpanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(JpanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -173,48 +151,58 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Jogo");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Novo Jogo");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        miNovoJogo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        miNovoJogo.setText("Novo Jogo");
+        miNovoJogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                miNovoJogoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(miNovoJogo);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Carregar Jogo");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        miCarregarJogo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        miCarregarJogo.setText("Carregar Jogo");
+        miCarregarJogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                miCarregarJogoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(miCarregarJogo);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setText("Pausar");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        miSalvarJogo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        miSalvarJogo.setText("Salvar Jogo");
+        miSalvarJogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                miSalvarJogoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(miSalvarJogo);
 
-        jMenuItem5.setText("Terminar Jogo");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        miPausar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        miPausar.setText("Pausar");
+        miPausar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                miPausarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        jMenu1.add(miPausar);
 
-        jMenuItem3.setText("Sair");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        miTerminarJogo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        miTerminarJogo.setText("Terminar Jogo");
+        miTerminarJogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                miTerminarJogoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(miTerminarJogo);
+
+        miSair.setText("Sair");
+        miSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSairActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miSair);
 
         jMenuBar1.add(jMenu1);
 
@@ -223,23 +211,46 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_miSairActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void miCarregarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCarregarJogoActionPerformed
+        JFileChooser fc = new JFileChooser();
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            jogo.SalvarJogo(fc.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_miCarregarJogoActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void miNovoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNovoJogoActionPerformed
         jogo.IniciarJogo();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        // Criar cursor a patir de uma imagem transparente
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+        getContentPane().setCursor(blankCursor);
+    }//GEN-LAST:event_miNovoJogoActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        jogo.PausarJogo();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    private void miTerminarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTerminarJogoActionPerformed
+        jogo.TerminarJogo();
+        getContentPane().setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_miTerminarJogoActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void miSalvarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalvarJogoActionPerformed
+        JFileChooser fc = new JFileChooser();
+        if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            jogo.SalvarJogo(fc.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_miSalvarJogoActionPerformed
+
+    private void miPausarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        if(jogo.EmPausa()) {
+            getContentPane().setCursor(Cursor.getDefaultCursor());
+        } else {
+            // Criar cursor a patir de uma imagem transparente
+            BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+            Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+            getContentPane().setCursor(blankCursor);
+        }
         jogo.PausarJogo();
     }
     
@@ -272,11 +283,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuItem miCarregarJogo;
+    private javax.swing.JMenuItem miNovoJogo;
+    private javax.swing.JMenuItem miPausar;
+    private javax.swing.JMenuItem miSair;
+    private javax.swing.JMenuItem miSalvarJogo;
+    private javax.swing.JMenuItem miTerminarJogo;
     // End of variables declaration//GEN-END:variables
 }

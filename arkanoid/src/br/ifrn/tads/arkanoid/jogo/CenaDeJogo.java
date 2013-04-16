@@ -1,16 +1,13 @@
 package br.ifrn.tads.arkanoid.jogo;
 
 import br.ifrn.tads.arkanoid.jogo.eventos.ColisionListener;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class CenaDeJogo extends JPanel implements ColisionListener {
@@ -61,9 +58,12 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
 
     private void RedefinirTijolos() {
         tijolos.clear();
+        int left = (getWidth()-Tijolo.largura*10)/2;
         for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 7; j++) {
-                tijolos.add(new Tijolo(5 - i, Tijolo.largura * j, Tijolo.altura * i));
+            for (int j = 0; j < 10; j++) {
+                Tijolo t = new Tijolo(5 - i, Tijolo.largura * j, Tijolo.altura * i);
+                t.x += left;
+                tijolos.add(t);
             }
         }
     }
