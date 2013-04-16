@@ -4,13 +4,14 @@ import br.ifrn.tads.arkanoid.jogo.eventos.ColisionListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import sun.java2d.loops.DrawGlyphList;
 
 public class CenaDeJogo extends JPanel implements ColisionListener {
 
@@ -162,10 +163,11 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
 
     @Override
     protected void paintComponent(Graphics grphcs) {
-        Graphics2D g = (Graphics2D) grphcs;
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getWidth(), getHeight());
         
+        Graphics2D g = (Graphics2D) grphcs;
+        //g.setColor(Color.BLACK);
+        //g.fillRect(0, 0, getWidth(), getHeight());
+
         if (ativo) {
             for (Tijolo t : tijolos) {
                 t.Paint(g);
