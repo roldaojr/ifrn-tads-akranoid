@@ -1,12 +1,11 @@
 package br.ifrn.tads.arkanoid.jogo;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.List;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class ControleDeJogo extends JPanel {
+public class ControleDeJogo implements Serializable {
 
     final private int atualiza_ms = 20; // Milliseconds entre atualizações.
     
@@ -53,13 +52,29 @@ public class ControleDeJogo extends JPanel {
     public void SalvarJogo() {
     }
 
-    public void CarregarJogo() {
+    public void CarregarJogo(String arquivo) {
     }
 
     public void LerPontuacoes() {
     }
 
     public void AdicionarPontuacao() {
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public int getPontos() {
+        return pontos;
+    }
+
+    public int getTempo() {
+        return tempo;
+    }
+
+    public int getVidas() {
+        return vidas;
     }
     
     private class TimerAction implements ActionListener {
