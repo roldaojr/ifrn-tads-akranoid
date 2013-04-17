@@ -108,45 +108,50 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         JpanelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pontos.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        pontos.setForeground(new java.awt.Color(255, 255, 0));
         pontos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pontos.setText("SCORES - ");
+        pontos.setText("SCORE - ");
         pontos.setToolTipText("");
         JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 110, -1));
 
         Nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        Nivel.setForeground(new java.awt.Color(255, 255, 0));
         Nivel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Nivel.setText("LEAVEL - ");
-        JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 233, -1, 20));
+        Nivel.setText(" LEVEL - ");
+        JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 90, 30));
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        Vidas.setText("LIFES - ");
-        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 313, -1, 30));
+        Vidas.setForeground(new java.awt.Color(255, 255, 0));
+        Vidas.setText("LIFE - ");
+        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 313, -1, 30));
 
         Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Arkanoid.png"))); // NOI18N
         Slogan.setText("jLabel2");
         Slogan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JpanelMenu.add(Slogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 240, 90));
 
-        imgNivel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        imgNivel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         imgNivel.setText("jLabel1");
         JpanelMenu.add(imgNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 219, 197, -1));
 
-        imgpontos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        imgpontos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         JpanelMenu.add(imgpontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 196, 65));
 
-        imgVidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        imgVidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         imgVidas.setText("jLabel4");
         JpanelMenu.add(imgVidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 300, 197, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 0));
         jLabel1.setText("By:");
         JpanelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 30, -1));
 
         jLabel2.setFont(new java.awt.Font("Verdana", 2, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 0));
         jLabel2.setText("Roldão Júnior and Fco Antonio");
         JpanelMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
 
-        creditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        creditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         creditos.setText("jLabel6");
         JpanelMenu.add(creditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 197, 80));
 
@@ -156,7 +161,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cenaDeJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cenaDeJogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JpanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -166,8 +171,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(backPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cenaDeJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JpanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
+                    .addComponent(JpanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addComponent(cenaDeJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
