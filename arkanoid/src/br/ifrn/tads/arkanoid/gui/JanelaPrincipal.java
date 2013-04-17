@@ -48,12 +48,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         backPanel = new NewJPanel();
         cenaDeJogo = new br.ifrn.tads.arkanoid.jogo.CenaDeJogo();
         JpanelMenu = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        pontos = new javax.swing.JLabel();
+        Nivel = new javax.swing.JLabel();
+        Vidas = new javax.swing.JLabel();
+        Slogan = new javax.swing.JLabel();
+        imgNivel = new javax.swing.JLabel();
+        imgpontos = new javax.swing.JLabel();
+        imgVidas = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        creditos = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         miNovoJogo = new javax.swing.JMenuItem();
@@ -91,7 +95,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         cenaDeJogo.setLayout(cenaDeJogoLayout);
         cenaDeJogoLayout.setHorizontalGroup(
             cenaDeJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addGap(0, 654, Short.MAX_VALUE)
         );
         cenaDeJogoLayout.setVerticalGroup(
             cenaDeJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,28 +107,47 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         JpanelMenu.setOpaque(false);
         JpanelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/ARKANOID.jpg"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        JpanelMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 219, 90));
+        pontos.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        pontos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pontos.setText("SCORES - ");
+        pontos.setToolTipText("");
+        JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 110, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        JpanelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 219, 197, -1));
+        Nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        Nivel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Nivel.setText("LEAVEL - ");
+        JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 233, -1, 20));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
-        JpanelMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 196, 65));
+        Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        Vidas.setText("LIFES - ");
+        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 313, -1, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
-        jLabel4.setText("jLabel4");
-        JpanelMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 300, 197, -1));
+        Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/ARKANOID.jpg"))); // NOI18N
+        Slogan.setText("jLabel2");
+        JpanelMenu.add(Slogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 219, 90));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
-        jLabel5.setText("jLabel5");
-        JpanelMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 381, 197, -1));
+        imgNivel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        imgNivel.setText("jLabel1");
+        JpanelMenu.add(imgNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 219, 197, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
-        jLabel6.setText("jLabel6");
-        JpanelMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 461, 197, -1));
+        imgpontos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        JpanelMenu.add(imgpontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 196, 65));
+
+        imgVidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        imgVidas.setText("jLabel4");
+        JpanelMenu.add(imgVidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 300, 197, -1));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("By:");
+        JpanelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 30, -1));
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 2, 12)); // NOI18N
+        jLabel2.setText("Roldão Júnior and Fco Antonio");
+        JpanelMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
+
+        creditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
+        creditos.setText("jLabel6");
+        JpanelMenu.add(creditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 197, 80));
 
         javax.swing.GroupLayout backPanelLayout = new javax.swing.GroupLayout(backPanel);
         backPanel.setLayout(backPanelLayout);
@@ -134,7 +157,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(cenaDeJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JpanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JpanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         backPanelLayout.setVerticalGroup(
@@ -267,16 +290,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelMenu;
+    private javax.swing.JLabel Nivel;
+    private javax.swing.JLabel Slogan;
+    private javax.swing.JLabel Vidas;
     private javax.swing.JPanel backPanel;
     private javax.swing.JPanel cenaDeJogo;
+    private javax.swing.JLabel creditos;
+    private javax.swing.JLabel imgNivel;
+    private javax.swing.JLabel imgVidas;
+    private javax.swing.JLabel imgpontos;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -291,5 +317,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuItem miSalvarJogo;
     private javax.swing.JMenuItem miTerminarJogo;
+    private javax.swing.JLabel pontos;
     // End of variables declaration//GEN-END:variables
 }
