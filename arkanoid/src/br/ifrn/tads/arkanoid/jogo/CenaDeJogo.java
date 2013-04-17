@@ -4,6 +4,8 @@ import br.ifrn.tads.arkanoid.jogo.eventos.ColisionListener;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -12,12 +14,13 @@ import javax.swing.JPanel;
 
 public class CenaDeJogo extends JPanel implements ColisionListener {
 
-    private List<ColisionListener> listeners;
+    private List<ColisionListener> colisionListeners;
     private List<Tijolo> tijolos;
     private List<Tijolo> tijolosRemovidos;
     private Raquete raquete;
     private Bola bola;
     private boolean ativo = false;
+    private List<ActionListener> estadoListeners;
 
     public CenaDeJogo() {
         super();
@@ -25,7 +28,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         bola = new Bola(400, 400);
         tijolos = new ArrayList<>();
         tijolosRemovidos = new ArrayList<>();
-        listeners = new ArrayList<>();
+        colisionListeners = new ArrayList<>();
         RedefinirTijolos();
         PosicionarRaquete();
         PosicionarBola();
@@ -58,7 +61,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
 
     private void RedefinirTijolos() {
         tijolos.clear();
-        int left = (getWidth()-Tijolo.largura*10)/2;
+        int left = (getWidth() - Tijolo.largura * 10) / 2;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 10; j++) {
                 Tijolo t = new Tijolo(5 - i, Tijolo.largura * j, Tijolo.altura * i);
@@ -83,17 +86,30 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         PosicionarRaquete();
         PosicionarBola();
     }
-
+    
     synchronized final public void addColisionListener(ColisionListener evt) {
-        if (listeners == null) {
-            listeners = new ArrayList<>();
+        if (colisionListeners == null) {
+            colisionListeners = new ArrayList<>();
         }
-        listeners.add(evt);
+        colisionListeners.add(evt);
     }
 
     synchronized final public void removeColisionListener(ColisionListener evt) {
-        if (listeners != null) {
-            listeners.remove(evt);
+        if (colisionListeners != null) {
+            colisionListeners.remove(evt);
+        }
+    }
+
+    synchronized final public void addAtualizarEstadoListener(ActionListener evt) {
+        if (estadoListeners == null) {
+            estadoListeners = new ArrayList<>();
+        }
+        estadoListeners.add(evt);
+    }
+
+    synchronized final public void removeAtualizarEstadoListener(ActionListener evt) {
+        if (estadoListeners != null) {
+            estadoListeners.remove(evt);
         }
     }
 
@@ -111,6 +127,15 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         }
     }
 
+    private void chamrEventoAtualizarEstado() {
+        synchronized (this) {
+            List<ActionListener> targets = new ArrayList<>(estadoListeners);
+            for (ActionListener l : targets) {
+                l.actionPerformed(new ActionEvent(this, 0, ""));
+            }
+        }
+    }
+    
     private void TesteColisao() {
         // Paredes da tela
         if (bola.x < 0) {
@@ -127,26 +152,29 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
             bola.setVelocidade(0);
             PosicionarBola();
         }
+        // Chamar listeners de evento
         List<ColisionListener> targets;
         // Tijolos
         for (Tijolo t : tijolos) {
             if (bola.intersects(t)) {
                 synchronized (this) {
-                    targets = new ArrayList<>(listeners);
+                    targets = new ArrayList<>(colisionListeners);
                     for (ColisionListener l : targets) {
                         l.ColisionDetected(bola, t);
                     }
                 }
             }
         }
+        // Bola
         if (bola.intersects(raquete)) {
             synchronized (this) {
-                targets = new ArrayList<>(listeners);
+                targets = new ArrayList<>(colisionListeners);
                 for (ColisionListener l : targets) {
                     l.ColisionDetected(bola, raquete);
                 }
             }
         }
+        // Zona de morte
     }
 
     void Atualizar() {
@@ -163,11 +191,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
 
     @Override
     protected void paintComponent(Graphics grphcs) {
-        
         Graphics2D g = (Graphics2D) grphcs;
-        //g.setColor(Color.BLACK);
-        //g.fillRect(0, 0, getWidth(), getHeight());
-
         if (ativo) {
             for (Tijolo t : tijolos) {
                 t.Paint(g);
