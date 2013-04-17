@@ -1,18 +1,17 @@
 package br.ifrn.tads.arkanoid.jogo;
 
+import br.ifrn.tads.arkanoid.jogo.eventos.ColisionListener;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.List;
 import javax.swing.Timer;
 
-public class ControleDeJogo implements Serializable {
+public class ControleDeJogo implements Serializable, ColisionListener {
 
     final private int atualiza_ms = 20; // Milliseconds entre atualizações.
-    private int vidas;
-    private int pontos;
-    private int tempo;
-    private int nivel;
+    private EstadoDeJogo estado;
     private boolean jogoAtivo;
     private CenaDeJogo cena;
     private List<Pontuacao> pontuacoes;
@@ -20,6 +19,8 @@ public class ControleDeJogo implements Serializable {
 
     public ControleDeJogo(CenaDeJogo c) {
         cena = c;
+        cena.addColisionListener(this);
+        estado = new EstadoDeJogo();
         atualizaTimer = new Timer(atualiza_ms, new TimerAction());
     }
 
@@ -42,14 +43,15 @@ public class ControleDeJogo implements Serializable {
     }
 
     public void PausarJogo() {
-        if (atualizaTimer.isRunning()) {
-            atualizaTimer.stop();
-        } else {
-            atualizaTimer.start();
-        }
+        atualizaTimer.stop();
     }
 
+    public void ContinuarJogo() {
+        atualizaTimer.start();
+    }
+    
     public void SalvarJogo(String arquivo) {
+        PausarJogo();
         FileOutputStream arq = null;
         ObjectOutputStream out = null;
         try {
@@ -58,7 +60,7 @@ public class ControleDeJogo implements Serializable {
             //objeto que vai escrever os dados
             out = new ObjectOutputStream(arq);
             //escreve todos os dados
-            out.writeObject(this);
+            out.writeObject(estado);
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -69,9 +71,11 @@ public class ControleDeJogo implements Serializable {
                 ex.printStackTrace();
             }
         }
+        ContinuarJogo();
     }
 
     public void CarregarJogo(String arquivo) {
+        PausarJogo();
 	FileInputStream arqLeitura = null;
 	ObjectInputStream in = null;
         try {
@@ -80,7 +84,7 @@ public class ControleDeJogo implements Serializable {
             //objeto que vai ler os dados do arquivo
             in = new ObjectInputStream(arqLeitura);
             //recupera os dados
-            ControleDeJogo jogo = (ControleDeJogo) in.readObject();
+            this.estado = (EstadoDeJogo) in.readObject();
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -93,6 +97,7 @@ public class ControleDeJogo implements Serializable {
                 ex.printStackTrace();
             }
         }
+        ContinuarJogo();
     }
 
     public void LerPontuacoes() {
@@ -101,20 +106,11 @@ public class ControleDeJogo implements Serializable {
     public void AdicionarPontuacao() {
     }
 
-    public int getNivel() {
-        return nivel;
-    }
-
-    public int getPontos() {
-        return pontos;
-    }
-
-    public int getTempo() {
-        return tempo;
-    }
-
-    public int getVidas() {
-        return vidas;
+    @Override
+    public void ColisionDetected(Rectangle e1, Rectangle e2) {
+        if(e1 instanceof Bola && e2 instanceof Tijolo) {
+            estado.setPontos(estado.getPontos()+1);
+        }
     }
 
     private class TimerAction implements ActionListener {
