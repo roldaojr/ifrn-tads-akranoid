@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Timer;
 
@@ -16,6 +17,7 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     private CenaDeJogo cena;
     private List<Pontuacao> pontuacoes;
     private Timer atualizaTimer;
+    private List<ActionListener> estadoListeners;
 
     public ControleDeJogo(CenaDeJogo c) {
         cena = c;
@@ -52,6 +54,7 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     
     public void SalvarJogo(String arquivo) {
         PausarJogo();
+        estado.setTijolos(cena.getTijolos());
         FileOutputStream arq = null;
         ObjectOutputStream out = null;
         try {
@@ -84,7 +87,8 @@ public class ControleDeJogo implements Serializable, ColisionListener {
             //objeto que vai ler os dados do arquivo
             in = new ObjectInputStream(arqLeitura);
             //recupera os dados
-            this.estado = (EstadoDeJogo) in.readObject();
+            estado = (EstadoDeJogo) in.readObject();
+            cena.setTijolos(estado.getTijolos());
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -110,9 +114,32 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     public void ColisionDetected(Rectangle e1, Rectangle e2) {
         if(e1 instanceof Bola && e2 instanceof Tijolo) {
             estado.setPontos(estado.getPontos()+1);
+            chamrEventoAtualizarEstado();
         }
     }
+    
+    private void chamrEventoAtualizarEstado() {
+        synchronized (this) {
+            List<ActionListener> targets = new ArrayList<>(estadoListeners);
+            for (ActionListener l : targets) {
+                l.actionPerformed(new ActionEvent(this.estado, 0, ""));
+            }
+        }
+    }
+    
+    synchronized final public void addAtualizarEstadoListener(ActionListener evt) {
+        if (estadoListeners == null) {
+            estadoListeners = new ArrayList<>();
+        }
+        estadoListeners.add(evt);
+    }
 
+    synchronized final public void removeAtualizarEstadoListener(ActionListener evt) {
+        if (estadoListeners != null) {
+            estadoListeners.remove(evt);
+        }
+    }
+    
     private class TimerAction implements ActionListener {
 
         @Override
