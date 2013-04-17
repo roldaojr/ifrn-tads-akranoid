@@ -20,7 +20,6 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     private Raquete raquete;
     private Bola bola;
     private boolean ativo = false;
-    private List<ActionListener> estadoListeners;
 
     public CenaDeJogo() {
         super();
@@ -46,7 +45,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         this.ativo = ativo;
         repaint();
     }
-
+    
     public List<Tijolo> getTijolos() {
         return tijolos;
     }
@@ -59,6 +58,18 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         return bola;
     }
 
+    public void setBola(Bola bola) {
+        this.bola = bola;
+    }
+
+    public void setRaquete(Raquete raquete) {
+        this.raquete = raquete;
+    }
+
+    public void setTijolos(List<Tijolo> tijolos) {
+        this.tijolos = tijolos;
+    }
+    
     private void RedefinirTijolos() {
         tijolos.clear();
         int left = (getWidth() - Tijolo.largura * 10) / 2;
@@ -100,19 +111,6 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         }
     }
 
-    synchronized final public void addAtualizarEstadoListener(ActionListener evt) {
-        if (estadoListeners == null) {
-            estadoListeners = new ArrayList<>();
-        }
-        estadoListeners.add(evt);
-    }
-
-    synchronized final public void removeAtualizarEstadoListener(ActionListener evt) {
-        if (estadoListeners != null) {
-            estadoListeners.remove(evt);
-        }
-    }
-
     @Override
     public void ColisionDetected(Rectangle e1, Rectangle e2) {
         synchronized (this) {
@@ -123,15 +121,6 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
                 } else if (t.getTipo() > 1) {
                     t.setTipo(t.getTipo() - 1);
                 }
-            }
-        }
-    }
-
-    private void chamrEventoAtualizarEstado() {
-        synchronized (this) {
-            List<ActionListener> targets = new ArrayList<>(estadoListeners);
-            for (ActionListener l : targets) {
-                l.actionPerformed(new ActionEvent(this, 0, ""));
             }
         }
     }

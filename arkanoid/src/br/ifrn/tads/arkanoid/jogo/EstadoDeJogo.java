@@ -2,12 +2,19 @@ package br.ifrn.tads.arkanoid.jogo;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EstadoDeJogo implements Serializable {
     private int pontos;
     private int vidas;
     private int nivel;
     private Time tempo;
+    private List<Tijolo> tijolos;
+    
+    public EstadoDeJogo() {
+        tijolos = new ArrayList<>();
+    }
 
     public int getNivel() {
         return nivel;
@@ -39,6 +46,14 @@ public class EstadoDeJogo implements Serializable {
 
     public void setVidas(int vidas) {
         this.vidas = vidas;
+    }
+
+    public List<Tijolo> getTijolos() {
+        return tijolos;
+    }
+
+    public void setTijolos(List<Tijolo> tijolos) {
+        this.tijolos = tijolos;
     }
 
 }
