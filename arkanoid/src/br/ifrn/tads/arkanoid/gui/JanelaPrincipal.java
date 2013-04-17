@@ -95,7 +95,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         cenaDeJogo.setLayout(cenaDeJogoLayout);
         cenaDeJogoLayout.setHorizontalGroup(
             cenaDeJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 652, Short.MAX_VALUE)
+            .addGap(0, 647, Short.MAX_VALUE)
         );
         cenaDeJogoLayout.setVerticalGroup(
             cenaDeJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,9 +122,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         Vidas.setText("LIFES - ");
         JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 313, -1, 30));
 
-        Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/ARKANOID.jpg"))); // NOI18N
+        Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Arkanoid.png"))); // NOI18N
         Slogan.setText("jLabel2");
-        JpanelMenu.add(Slogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 219, 90));
+        Slogan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        JpanelMenu.add(Slogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 240, 90));
 
         imgNivel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Buttons.jpg"))); // NOI18N
         imgNivel.setText("jLabel1");
@@ -157,7 +158,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(cenaDeJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JpanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JpanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         backPanelLayout.setVerticalGroup(
