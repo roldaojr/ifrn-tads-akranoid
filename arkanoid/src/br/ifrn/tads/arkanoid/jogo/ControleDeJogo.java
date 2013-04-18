@@ -114,18 +114,18 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     public void ColisionDetected(Rectangle e1, Rectangle e2) {
         if(e1 instanceof Bola && e2 instanceof Tijolo) {
             estado.setPontos(estado.getPontos()+1);
-            chamrEventoAtualizarEstado();
+            //chamrEventoAtualizarEstado();
         }
     }
     
-    private void chamrEventoAtualizarEstado() {
+    /*private void chamrEventoAtualizarEstado() {
         synchronized (this) {
             List<ActionListener> targets = new ArrayList<>(estadoListeners);
             for (ActionListener l : targets) {
-                l.actionPerformed(new ActionEvent(this.estado, 0, ""));
+                l.actionPerformed(new ActionEvent(this.estado, 0,""));
             }
         }
-    }
+    }*/
     
     synchronized final public void addAtualizarEstadoListener(ActionListener evt) {
         if (estadoListeners == null) {
