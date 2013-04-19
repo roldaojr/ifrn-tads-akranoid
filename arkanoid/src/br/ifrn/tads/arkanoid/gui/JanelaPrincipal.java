@@ -25,7 +25,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
         initComponents();
         jogo = new ControleDeJogo((CenaDeJogo) cenaDeJogo);
-        
+        backgroundImage = new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, null);
     }
 
     /**
