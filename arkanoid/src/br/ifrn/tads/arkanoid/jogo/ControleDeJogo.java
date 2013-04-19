@@ -35,6 +35,7 @@ public class ControleDeJogo implements Serializable, ColisionListener {
 
     public void TerminarJogo() {
         atualizaTimer.stop();
+        //
         cena.RedefinirEstado();
         cena.setAtivo(false);
         jogoAtivo = false;
