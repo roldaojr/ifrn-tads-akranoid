@@ -23,6 +23,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      */
     public JanelaPrincipal() {
         initComponents();
+        setLocationRelativeTo(null);
         jogo = new ControleDeJogo((CenaDeJogo) cenaDeJogo);
         jogo.addAtualizarEstadoListener(new ActionListener() {
             @Override
@@ -32,6 +33,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
     }
 
+<<<<<<< HEAD
+=======
+  /*  @Override
+    public void paint(Graphics g) {
+        super.paint(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, null);
+    }*/
+>>>>>>> 59418933e7519fe1c7bb3b8afea54391c2c042e3
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,6 +126,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pontos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         pontos.setText("SCORE - ");
         pontos.setToolTipText("");
+<<<<<<< HEAD
         JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, -1));
 
         Nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -124,12 +134,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         Nivel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Nivel.setText("LEVEL - ");
         JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 170, 30));
+=======
+        JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 120, -1));
+
+        Nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        Nivel.setForeground(new java.awt.Color(255, 255, 0));
+        Nivel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Nivel.setText(" LEVEL - ");
+        JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 100, 30));
+>>>>>>> 59418933e7519fe1c7bb3b8afea54391c2c042e3
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
         Vidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Vidas.setText("LIFE - ");
+<<<<<<< HEAD
         JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 313, 170, 30));
+=======
+        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 313, 70, 30));
+>>>>>>> 59418933e7519fe1c7bb3b8afea54391c2c042e3
 
         Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Arkanoid.png"))); // NOI18N
         Slogan.setText("jLabel2");
@@ -138,14 +161,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         imgNivel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         imgNivel.setText("jLabel1");
-        JpanelMenu.add(imgNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 219, 197, -1));
+        JpanelMenu.add(imgNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 200, -1));
 
         imgpontos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
-        JpanelMenu.add(imgpontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 196, 65));
+        JpanelMenu.add(imgpontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 200, -1));
 
         imgVidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         imgVidas.setText("jLabel4");
-        JpanelMenu.add(imgVidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 300, 197, -1));
+        JpanelMenu.add(imgVidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 200, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 0));
@@ -159,7 +182,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         creditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         creditos.setText("jLabel6");
-        JpanelMenu.add(creditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 197, 80));
+        JpanelMenu.add(creditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 200, 80));
 
         javax.swing.GroupLayout backPanelLayout = new javax.swing.GroupLayout(backPanel);
         backPanel.setLayout(backPanelLayout);
