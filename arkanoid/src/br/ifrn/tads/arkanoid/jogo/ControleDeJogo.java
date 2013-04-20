@@ -19,7 +19,6 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     private EstadoDeJogo estado;
     private boolean ativo;
     private CenaDeJogo cena;
-    private List<Pontuacao> pontuacoes;
     private Timer atualizaTimer;
     private List<ActionListener> estadoListeners;
     private List<ActionListener> fimDeJogoListeners;
