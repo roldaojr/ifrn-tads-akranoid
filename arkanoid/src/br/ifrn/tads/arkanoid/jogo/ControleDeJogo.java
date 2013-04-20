@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Timer;
 
+/**
+ * Controle a execução do jogo.
+ * @author Roldão
+ */
 public class ControleDeJogo implements Serializable, ColisionListener {
 
     final private int atualiza_ms = 20; // Milliseconds entre atualizações.
@@ -20,6 +24,10 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     private List<ActionListener> estadoListeners;
     private List<ActionListener> fimDeJogoListeners;
 
+    /**
+     * Criar um novo controle de jogo.
+     * @param c Objeto CenaDeJogo para mostrar o jogo.
+     */
     public ControleDeJogo(CenaDeJogo c) {
         cena = c;
         cena.addColisionListener(this);
@@ -35,14 +43,26 @@ public class ControleDeJogo implements Serializable, ColisionListener {
         fimDeJogoListeners = new ArrayList<>();
     }
 
+    /**
+     * Acessar o estado do jogo.
+     * @return O objeoto EstadoDeJogo com o estado atual do jogo.
+     */
     public EstadoDeJogo getEstado() {
         return estado;
     }
 
+    /**
+     * Acessar a tela do jogo.
+     * @return O objeto CenaDeJogo associado.
+     */
     public CenaDeJogo getCena() {
         return cena;
     }
     
+    /**
+     * Iniciar um novo jogo.
+     * @param pausado true para iniciar o jogo pausado, false caso contrário.
+     */
     public void IniciarJogo(boolean pausado) {
         ativo = true;
         cena.setAtivo(true);
@@ -52,10 +72,16 @@ public class ControleDeJogo implements Serializable, ColisionListener {
         if(!pausado) atualizaTimer.start();
     }
 
+    /**
+     * Iniciar um novo jogo.
+     */
     public void IniciarJogo() {
         IniciarJogo(false);
     }
     
+    /**
+     * Terminar o jogo em execução.
+     */
     public void TerminarJogo() {
         atualizaTimer.stop();
         cena.RedefinirEstado();
@@ -63,22 +89,40 @@ public class ControleDeJogo implements Serializable, ColisionListener {
         ativo = false;
     }
 
+    /**
+     * Verficar se o jogo está em execução
+     * @return true se houver um jogo em curso, false caso contrário.
+     */
     public boolean isAtivo() {
         return ativo;
     }
 
+    /**
+     * Verficar se o jogo está em pausa
+     * @return true se o jogo estiver em pausa, false caso contrário.
+     */
     public boolean EmPausa() {
         return !atualizaTimer.isRunning();
     }
 
+    /**
+     * Pausar o jogo ativo.
+     */
     public void PausarJogo() {
         atualizaTimer.stop();
     }
 
+    /**
+     * Continuar (despausar) o jogo ativo.
+     */
     public void ContinuarJogo() {
         atualizaTimer.start();
     }
     
+    /**
+     * Salvar o jogo em curso.
+     * @param arquivo Nome do arquivo onde o estado do jogo será gravado.
+     */
     public void SalvarJogo(String arquivo) {
         PausarJogo();
         estado.setTijolos(cena.getTijolos());
@@ -101,9 +145,12 @@ public class ControleDeJogo implements Serializable, ColisionListener {
                 ex.printStackTrace();
             }
         }
-        ContinuarJogo();
     }
 
+    /**
+     * Carregar um jogo.
+     * @param arquivo Nome do arquivo de onde será lido o jogo.
+     */
     public void CarregarJogo(String arquivo) {
         if(ativo) TerminarJogo();
         IniciarJogo(true);
@@ -130,9 +177,13 @@ public class ControleDeJogo implements Serializable, ColisionListener {
             }
         }
         chamrEventoAtualizarEstado();
-        ContinuarJogo();
     }
 
+    /**
+     * Método da interface ColisionListener para detecção de colisões
+     * @param e1 Retangulo que colidiu
+     * @param e2 Retangulo com o qual o e1 colidiu
+     */
     @Override
     public void ColisionDetected(Rectangle e1, Rectangle e2) {
         if(e1 instanceof Bola && e2 instanceof Tijolo) {
@@ -155,7 +206,10 @@ public class ControleDeJogo implements Serializable, ColisionListener {
             }
         }
     }
-    
+
+    /**
+     * Acionar o evento atualizar estado
+     */
     private void chamrEventoAtualizarEstado() {
         synchronized (this) {
             List<ActionListener> targets = new ArrayList<>(estadoListeners);
@@ -165,29 +219,45 @@ public class ControleDeJogo implements Serializable, ColisionListener {
         }
     }
     
-    synchronized final public void addAtualizarEstadoListener(ActionListener evt) {
+    /**
+     * Adicionar um listener para o evento atualizar estado.
+     * @param listener Listener a ser adicionado
+     */
+    synchronized final public void addAtualizarEstadoListener(ActionListener listener) {
         if (estadoListeners == null) {
             estadoListeners = new ArrayList<>();
         }
-        estadoListeners.add(evt);
+        estadoListeners.add(listener);
     }
 
-    synchronized final public void removeAtualizarEstadoListener(ActionListener evt) {
+    /**
+     * Remover um listener para o evento atualizar estado.
+     * @param listener Listener a ser removido
+     */
+    synchronized final public void removeAtualizarEstadoListener(ActionListener listener) {
         if (estadoListeners != null) {
-            estadoListeners.remove(evt);
+            estadoListeners.remove(listener);
         }
     }
 
-    synchronized final public void addFimDeJogoListener(ActionListener evt) {
+    /**
+     * Adicionar um listener para o evento fim de jogo.
+     * @param listener Listener a ser adicionado
+     */
+    synchronized final public void addFimDeJogoListener(ActionListener listener) {
         if (fimDeJogoListeners == null) {
             fimDeJogoListeners = new ArrayList<>();
         }
-        fimDeJogoListeners.add(evt);
+        fimDeJogoListeners.add(listener);
     }
 
-    synchronized final public void removeFimDeJogoListener(ActionListener evt) {
+    /**
+     * Remover um listener para o evento fim de jogo.
+     * @param listener Listener a ser removido
+     */
+    synchronized final public void removeFimDeJogoListener(ActionListener listener) {
         if (fimDeJogoListeners != null) {
-            fimDeJogoListeners.remove(evt);
+            fimDeJogoListeners.remove(listener);
         }
     }
 }

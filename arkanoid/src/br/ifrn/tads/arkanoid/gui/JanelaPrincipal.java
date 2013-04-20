@@ -17,7 +17,9 @@ import javax.swing.JFileChooser;
  * @author Roldão
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
+
     ControleDeJogo jogo;
+
     /**
      * Creates new form JanelaPrincipal
      */
@@ -29,6 +31,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 atualizarEstadoActionPerformed(ae);
+            }
+        });
+        jogo.addFimDeJogoListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                setCursor(Cursor.getDefaultCursor());
             }
         });
     }
@@ -247,31 +255,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
-        pontos.setText("SCORE - "+jogo.getEstado().getPontos());
-        Nivel.setText("LEVEL - "+jogo.getEstado().getNivel());
-        Vidas.setText("LIFES - "+jogo.getEstado().getVidas());
+        pontos.setText("SCORE - " + jogo.getEstado().getPontos());
+        Nivel.setText("LEVEL - " + jogo.getEstado().getNivel());
+        Vidas.setText("LIFES - " + jogo.getEstado().getVidas());
     }
-    
+
     private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
         dispose();
     }//GEN-LAST:event_miSairActionPerformed
 
     private void miCarregarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCarregarJogoActionPerformed
         boolean pausado = jogo.EmPausa();
-        if(!pausado) jogo.PausarJogo();
+        if (!pausado) {
+            jogo.PausarJogo();
+        }
         JFileChooser fc = new JFileChooser();
         if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             jogo.CarregarJogo(fc.getSelectedFile().getAbsolutePath());
         }
-        if(!pausado) jogo.ContinuarJogo();
+        if (!pausado) {
+            jogo.ContinuarJogo();
+        }
     }//GEN-LAST:event_miCarregarJogoActionPerformed
 
     private void miNovoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNovoJogoActionPerformed
         jogo.IniciarJogo();
-        // Criar cursor a patir de uma imagem transparente
-        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
-        getContentPane().setCursor(blankCursor);
+        getContentPane().setCursor(blankCursor());
     }//GEN-LAST:event_miNovoJogoActionPerformed
 
     private void miTerminarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTerminarJogoActionPerformed
@@ -281,20 +290,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void miSalvarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalvarJogoActionPerformed
         boolean pausado = jogo.EmPausa();
-        if(!pausado) jogo.PausarJogo();
+        if (!pausado) {
+            jogo.PausarJogo();
+        }
         JFileChooser fc = new JFileChooser();
         if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             jogo.SalvarJogo(fc.getSelectedFile().getAbsolutePath());
         }
-        if(!pausado) jogo.ContinuarJogo();
+        if (!pausado) {
+            jogo.ContinuarJogo();
+        }
     }//GEN-LAST:event_miSalvarJogoActionPerformed
 
-    private void miPausarActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        if(jogo.EmPausa()) {
-            // Criar cursor a patir de uma imagem transparente
-            BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-            Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
-            getContentPane().setCursor(blankCursor);
+    private void miPausarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (jogo.EmPausa()) {
+            getContentPane().setCursor(blankCursor());
             miPausar.setText("Pausar");
             jogo.ContinuarJogo();
         } else {
@@ -303,7 +313,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             jogo.PausarJogo();
         }
     }
-    
+
+    private Cursor blankCursor() {
+        // Criar cursor a patir de uma imagem transparente
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        return Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+    }
+
     /**
      * @param args the command line arguments
      */
