@@ -4,10 +4,9 @@ import br.ifrn.tads.arkanoid.jogo.eventos.ColisionListener;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -20,6 +19,10 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     private Raquete raquete;
     private Bola bola;
     private boolean ativo = false;
+    private Rectangle paredeEsquerda;
+    private Rectangle paredeDireita;
+    private Rectangle paredeSuperior;
+    private Rectangle paredeInferior;
 
     public CenaDeJogo() {
         super();
@@ -28,13 +31,8 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         tijolos = new ArrayList<>();
         tijolosRemovidos = new ArrayList<>();
         colisionListeners = new ArrayList<>();
-        RedefinirTijolos();
-        PosicionarRaquete();
-        PosicionarBola();
         addMouseListener(new MouseEventos());
         addMouseMotionListener(new MouseEventos());
-        addColisionListener(this);
-        addColisionListener(bola);
     }
 
     public boolean isAtivo() {
@@ -45,7 +43,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         this.ativo = ativo;
         repaint();
     }
-    
+
     public List<Tijolo> getTijolos() {
         return tijolos;
     }
@@ -69,7 +67,23 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     public void setTijolos(List<Tijolo> tijolos) {
         this.tijolos = tijolos;
     }
-    
+
+    public Rectangle getParedeEsquerda() {
+        return paredeEsquerda;
+    }
+
+    public Rectangle getParedeDireita() {
+        return paredeDireita;
+    }
+
+    public Rectangle getParedeSuperior() {
+        return paredeSuperior;
+    }
+
+    public Rectangle getParedeInferior() {
+        return paredeInferior;
+    }
+
     private void RedefinirTijolos() {
         tijolos.clear();
         int left = (getWidth() - Tijolo.largura * 10) / 2;
@@ -82,11 +96,11 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         }
     }
 
-    private void PosicionarRaquete() {
+    private void RedefinirRaquete() {
         raquete.x = 0;
     }
 
-    private void PosicionarBola() {
+    void RedefinirBola() {
         bola.setVelocidade(0);
         bola.x = (int) (raquete.x + (raquete.getWidth() / 2) - (bola.getWidth() / 2));
         bola.y = raquete.y - bola.height;
@@ -94,10 +108,10 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
 
     public void RedefinirEstado() {
         RedefinirTijolos();
-        PosicionarRaquete();
-        PosicionarBola();
+        RedefinirRaquete();
+        RedefinirBola();
     }
-    
+
     synchronized final public void addColisionListener(ColisionListener evt) {
         if (colisionListeners == null) {
             colisionListeners = new ArrayList<>();
@@ -113,67 +127,82 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
 
     @Override
     public void ColisionDetected(Rectangle e1, Rectangle e2) {
-        synchronized (this) {
-            if (e2 instanceof Tijolo) {
-                Tijolo t = (Tijolo) e2;
-                if (t.getTipo() == 1) {
-                    tijolosRemovidos.add(t);
-                } else if (t.getTipo() > 1) {
-                    t.setTipo(t.getTipo() - 1);
-                }
+        if (e2 instanceof Tijolo) {
+            Tijolo t = (Tijolo) e2;
+            if (t.getTipo() == 1) {
+                tijolosRemovidos.add(t);
+            } else if (t.getTipo() > 1) {
+                t.setTipo(t.getTipo() - 1);
+            }
+        }
+        if (e1 == bola) {
+            Rectangle2D irect = bola.intersection(e2);
+            if(irect.getWidth() < irect.getHeight()) {
+                bola.setDirecaoX(-bola.getDirecaoX());
+                bola.x += irect.getWidth()*bola.getDirecaoX();
+            } else {
+                bola.setDirecaoY(-bola.getDirecaoY());
+                bola.y += irect.getHeight()*bola.getDirecaoY();
             }
         }
     }
-    
+
     private void TesteColisao() {
+        if (paredeEsquerda == null) {
+            paredeEsquerda = new Rectangle(-20, 0, 20, getHeight());
+        }
+        if (paredeDireita == null) {
+            paredeDireita = new Rectangle(getWidth(), 0, 20, getHeight());
+        }
+        if (paredeSuperior == null) {
+            paredeSuperior = new Rectangle(0, -20, getWidth(), 20);
+        }
+        if (paredeInferior == null) {
+            paredeInferior = new Rectangle(0, getHeight(), getWidth(), 20);
+        }
         // Paredes da tela
-        if (bola.x < 0) {
-            bola.x = 0;
-            bola.setDirecaoX(-bola.getDirecaoX());
-        } else if (bola.x > (getWidth() - bola.width)) {
-            bola.x = getWidth() - bola.width;
-            bola.setDirecaoX(-bola.getDirecaoX());
+        if (bola.intersects(paredeEsquerda)) {
+            chamarEventoColisao(bola, paredeEsquerda);
         }
-        if (bola.y < 0) {
-            bola.y = 0;
-            bola.setDirecaoY(-bola.getDirecaoY());
-        } else if (bola.y > (getHeight() - bola.height)) {
-            bola.setVelocidade(0);
-            PosicionarBola();
+        if (bola.intersects(paredeDireita)) {
+            chamarEventoColisao(bola, paredeDireita);
         }
-        // Chamar listeners de evento
-        List<ColisionListener> targets;
+        if (bola.intersects(paredeSuperior)) {
+            chamarEventoColisao(bola, paredeSuperior);
+        }
+        if (bola.intersects(paredeInferior)) {
+            chamarEventoColisao(bola, paredeInferior);
+        }
         // Tijolos
         for (Tijolo t : tijolos) {
             if (bola.intersects(t)) {
-                synchronized (this) {
-                    targets = new ArrayList<>(colisionListeners);
-                    for (ColisionListener l : targets) {
-                        l.ColisionDetected(bola, t);
-                    }
-                }
+                chamarEventoColisao(bola, t);
             }
         }
         // Bola
         if (bola.intersects(raquete)) {
-            synchronized (this) {
-                targets = new ArrayList<>(colisionListeners);
-                for (ColisionListener l : targets) {
-                    l.ColisionDetected(bola, raquete);
-                }
-            }
+            chamarEventoColisao(bola, raquete);
         }
-        // Zona de morte
     }
 
-    void Atualizar() {
+    private void chamarEventoColisao(Rectangle e1, Rectangle e2) {
+        ColisionDetected(e1, e2);
+        synchronized (this) {
+            List<ColisionListener> targets = new ArrayList<>(colisionListeners);
+            for (ColisionListener l : targets) {
+                l.ColisionDetected(e1, e2);
+            }
+        }
+    }
+
+    void atualizarJogo() {
         tijolos.removeAll(tijolosRemovidos);
         tijolosRemovidos.clear();
         if (bola.getVelocidade() > 0) {
             bola.Mover();
             TesteColisao();
         } else {
-            PosicionarBola();
+            RedefinirBola();
         }
         repaint();
     }

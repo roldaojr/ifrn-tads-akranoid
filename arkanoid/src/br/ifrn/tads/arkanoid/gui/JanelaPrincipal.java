@@ -8,8 +8,8 @@ import br.ifrn.tads.arkanoid.jogo.CenaDeJogo;
 import br.ifrn.tads.arkanoid.jogo.ControleDeJogo;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 /**
@@ -18,21 +18,20 @@ import javax.swing.JFileChooser;
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
     ControleDeJogo jogo;
-    private Image backgroundImage;
     /**
      * Creates new form JanelaPrincipal
      */
     public JanelaPrincipal() {
         initComponents();
         jogo = new ControleDeJogo((CenaDeJogo) cenaDeJogo);
-        backgroundImage = new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage();
+        jogo.addAtualizarEstadoListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                atualizarEstadoActionPerformed(ae);
+            }
+        });
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g); //To change body of generated methods, choose Tools | Templates.
-        g.drawImage(backgroundImage, 0, 0, null);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,21 +114,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         pontos.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         pontos.setForeground(new java.awt.Color(255, 255, 0));
-        pontos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pontos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         pontos.setText("SCORE - ");
         pontos.setToolTipText("");
-        JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 110, -1));
+        JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, -1));
 
         Nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Nivel.setForeground(new java.awt.Color(255, 255, 0));
-        Nivel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Nivel.setText(" LEVEL - ");
-        JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 90, 30));
+        Nivel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Nivel.setText("LEVEL - ");
+        JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 170, 30));
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
+        Vidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Vidas.setText("LIFE - ");
-        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 313, -1, 30));
+        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 313, 170, 30));
 
         Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Arkanoid.png"))); // NOI18N
         Slogan.setText("jLabel2");
@@ -246,15 +246,24 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void atualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
+        pontos.setText("SCORE - "+jogo.getEstado().getPontos());
+        Nivel.setText("LEVEL - "+jogo.getEstado().getNivel());
+        Vidas.setText("LIFES - "+jogo.getEstado().getVidas());
+    }
+    
     private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_miSairActionPerformed
 
     private void miCarregarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCarregarJogoActionPerformed
+        boolean pausado = jogo.EmPausa();
+        if(!pausado) jogo.PausarJogo();
         JFileChooser fc = new JFileChooser();
         if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            jogo.SalvarJogo(fc.getSelectedFile().getAbsolutePath());
+            jogo.CarregarJogo(fc.getSelectedFile().getAbsolutePath());
         }
+        if(!pausado) jogo.ContinuarJogo();
     }//GEN-LAST:event_miCarregarJogoActionPerformed
 
     private void miNovoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNovoJogoActionPerformed
@@ -271,10 +280,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miTerminarJogoActionPerformed
 
     private void miSalvarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalvarJogoActionPerformed
+        boolean pausado = jogo.EmPausa();
+        if(!pausado) jogo.PausarJogo();
         JFileChooser fc = new JFileChooser();
         if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             jogo.SalvarJogo(fc.getSelectedFile().getAbsolutePath());
         }
+        if(!pausado) jogo.ContinuarJogo();
     }//GEN-LAST:event_miSalvarJogoActionPerformed
 
     private void miPausarActionPerformed(java.awt.event.ActionEvent evt) {                                           

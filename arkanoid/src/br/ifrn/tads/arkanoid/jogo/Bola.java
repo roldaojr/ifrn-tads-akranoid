@@ -1,12 +1,9 @@
 package br.ifrn.tads.arkanoid.jogo;
 
-import br.ifrn.tads.arkanoid.jogo.eventos.ColisionListener;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 
-public class Bola extends ElementoDaTela implements ColisionListener {
+public class Bola extends ElementoDaTela {
 
     private int velocidade;
     private int direcaoX;
@@ -53,24 +50,6 @@ public class Bola extends ElementoDaTela implements ColisionListener {
             return true;
         } else {
             return false;
-        }
-    }
-
-    @Override
-    public void ColisionDetected(Rectangle e1, Rectangle e2) {
-        Rectangle2D irect = intersection(e2);
-        if (e2.intersectsLine(x, y, x + width, y)) { // parte de cima
-            direcaoY = -direcaoY;
-            y += irect.getHeight();
-        } else if (e2.intersectsLine(x, y + height, x + width, y + height)) { // parte de baixo
-            direcaoY = -direcaoY;
-            y -= irect.getHeight();
-        } else if (e2.intersectsLine(x, y, x, y + height)) { // parte esquerda
-            direcaoX = -direcaoX;
-            x += irect.getWidth();
-        } else if (e2.intersectsLine(x + width, y, x + width, y + height)) { // parte direitra
-            direcaoX = -direcaoX;
-            x -= irect.getWidth();
         }
     }
 

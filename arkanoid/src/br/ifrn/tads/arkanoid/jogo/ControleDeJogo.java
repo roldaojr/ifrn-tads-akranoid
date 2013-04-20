@@ -13,32 +13,58 @@ public class ControleDeJogo implements Serializable, ColisionListener {
 
     final private int atualiza_ms = 20; // Milliseconds entre atualizações.
     private EstadoDeJogo estado;
-    private boolean jogoAtivo;
+    private boolean ativo;
     private CenaDeJogo cena;
     private List<Pontuacao> pontuacoes;
     private Timer atualizaTimer;
     private List<ActionListener> estadoListeners;
+    private List<ActionListener> fimDeJogoListeners;
 
     public ControleDeJogo(CenaDeJogo c) {
         cena = c;
         cena.addColisionListener(this);
         estado = new EstadoDeJogo();
-        atualizaTimer = new Timer(atualiza_ms, new TimerAction());
+        cena.setTijolos(estado.getTijolos());
+        atualizaTimer = new Timer(atualiza_ms, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                cena.atualizarJogo();
+            }
+        });
+        estadoListeners = new ArrayList<>();
+        fimDeJogoListeners = new ArrayList<>();
+    }
+
+    public EstadoDeJogo getEstado() {
+        return estado;
+    }
+
+    public CenaDeJogo getCena() {
+        return cena;
+    }
+    
+    public void IniciarJogo(boolean pausado) {
+        ativo = true;
+        cena.setAtivo(true);
+        cena.RedefinirEstado();
+        estado = new EstadoDeJogo();
+        chamrEventoAtualizarEstado();
+        if(!pausado) atualizaTimer.start();
     }
 
     public void IniciarJogo() {
-        jogoAtivo = true;
-        cena.setAtivo(true);
-        cena.RedefinirEstado();
-        atualizaTimer.start();
+        IniciarJogo(false);
     }
-
+    
     public void TerminarJogo() {
         atualizaTimer.stop();
-        //
         cena.RedefinirEstado();
         cena.setAtivo(false);
-        jogoAtivo = false;
+        ativo = false;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
     }
 
     public boolean EmPausa() {
@@ -79,7 +105,8 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     }
 
     public void CarregarJogo(String arquivo) {
-        PausarJogo();
+        if(ativo) TerminarJogo();
+        IniciarJogo(true);
 	FileInputStream arqLeitura = null;
 	ObjectInputStream in = null;
         try {
@@ -102,31 +129,41 @@ public class ControleDeJogo implements Serializable, ColisionListener {
                 ex.printStackTrace();
             }
         }
+        chamrEventoAtualizarEstado();
         ContinuarJogo();
-    }
-
-    public void LerPontuacoes() {
-    }
-
-    public void AdicionarPontuacao() {
     }
 
     @Override
     public void ColisionDetected(Rectangle e1, Rectangle e2) {
         if(e1 instanceof Bola && e2 instanceof Tijolo) {
             estado.setPontos(estado.getPontos()+1);
-            //chamrEventoAtualizarEstado();
+            chamrEventoAtualizarEstado();
+        }
+        if(e2 == cena.getParedeInferior()) {
+            if(estado.getVidas() > 0) {
+                estado.setVidas(estado.getVidas() - 1);
+                chamrEventoAtualizarEstado();
+                cena.RedefinirBola();
+            } else {
+                TerminarJogo();
+                synchronized (this) {
+                    List<ActionListener> targets = new ArrayList<>(fimDeJogoListeners);
+                    for (ActionListener l : targets) {
+                        l.actionPerformed(new ActionEvent(this, 0, "Game Over"));
+                    }
+                }
+            }
         }
     }
     
-    /*private void chamrEventoAtualizarEstado() {
+    private void chamrEventoAtualizarEstado() {
         synchronized (this) {
             List<ActionListener> targets = new ArrayList<>(estadoListeners);
             for (ActionListener l : targets) {
                 l.actionPerformed(new ActionEvent(this.estado, 0,""));
             }
         }
-    }*/
+    }
     
     synchronized final public void addAtualizarEstadoListener(ActionListener evt) {
         if (estadoListeners == null) {
@@ -140,12 +177,17 @@ public class ControleDeJogo implements Serializable, ColisionListener {
             estadoListeners.remove(evt);
         }
     }
-    
-    private class TimerAction implements ActionListener {
 
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            cena.Atualizar();
+    synchronized final public void addFimDeJogoListener(ActionListener evt) {
+        if (fimDeJogoListeners == null) {
+            fimDeJogoListeners = new ArrayList<>();
+        }
+        fimDeJogoListeners.add(evt);
+    }
+
+    synchronized final public void removeFimDeJogoListener(ActionListener evt) {
+        if (fimDeJogoListeners != null) {
+            fimDeJogoListeners.remove(evt);
         }
     }
 }

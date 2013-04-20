@@ -14,6 +14,10 @@ public class EstadoDeJogo implements Serializable {
     
     public EstadoDeJogo() {
         tijolos = new ArrayList<>();
+        pontos = 0;
+        vidas = 3;
+        nivel = 1;
+        tempo = new Time(0);
     }
 
     public int getNivel() {
