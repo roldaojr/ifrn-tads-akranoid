@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 
+/**
+ *
+ * @author Roldão
+ */
 public class CenaDeJogo extends JPanel implements ColisionListener {
 
     private List<ColisionListener> colisionListeners;
@@ -24,6 +28,9 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     private Rectangle paredeSuperior;
     private Rectangle paredeInferior;
 
+    /**
+     *
+     */
     public CenaDeJogo() {
         super();
         raquete = new Raquete(-100, -100);
@@ -35,51 +42,99 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         addMouseMotionListener(new MouseEventos());
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isAtivo() {
         return ativo;
     }
 
+    /**
+     *
+     * @param ativo
+     */
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
         repaint();
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Tijolo> getTijolos() {
         return tijolos;
     }
 
+    /**
+     *
+     * @return
+     */
     public Raquete getRaquete() {
         return raquete;
     }
 
+    /**
+     *
+     * @return
+     */
     public Bola getBola() {
         return bola;
     }
 
+    /**
+     *
+     * @param bola
+     */
     public void setBola(Bola bola) {
         this.bola = bola;
     }
 
+    /**
+     *
+     * @param raquete
+     */
     public void setRaquete(Raquete raquete) {
         this.raquete = raquete;
     }
 
+    /**
+     *
+     * @param tijolos
+     */
     public void setTijolos(List<Tijolo> tijolos) {
         this.tijolos = tijolos;
     }
 
+    /**
+     *
+     * @return
+     */
     public Rectangle getParedeEsquerda() {
         return paredeEsquerda;
     }
 
+    /**
+     *
+     * @return
+     */
     public Rectangle getParedeDireita() {
         return paredeDireita;
     }
 
+    /**
+     *
+     * @return
+     */
     public Rectangle getParedeSuperior() {
         return paredeSuperior;
     }
 
+    /**
+     *
+     * @return
+     */
     public Rectangle getParedeInferior() {
         return paredeInferior;
     }
@@ -89,7 +144,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         int left = (getWidth() - Tijolo.largura * 10) / 2;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 10; j++) {
-                Tijolo t = new Tijolo(5 - i, Tijolo.largura * j, Tijolo.altura * i);
+                Tijolo t = new Tijolo(5 - i, Tijolo.largura * j, Tijolo.altura * i + 4);
                 t.x += left;
                 tijolos.add(t);
             }
@@ -106,12 +161,19 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         bola.y = raquete.y - bola.height;
     }
 
+    /**
+     *
+     */
     public void RedefinirEstado() {
         RedefinirTijolos();
         RedefinirRaquete();
         RedefinirBola();
     }
 
+    /**
+     *
+     * @param evt
+     */
     synchronized final public void addColisionListener(ColisionListener evt) {
         if (colisionListeners == null) {
             colisionListeners = new ArrayList<>();
@@ -119,12 +181,21 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         colisionListeners.add(evt);
     }
 
+    /**
+     *
+     * @param evt
+     */
     synchronized final public void removeColisionListener(ColisionListener evt) {
         if (colisionListeners != null) {
             colisionListeners.remove(evt);
         }
     }
 
+    /**
+     *
+     * @param e1
+     * @param e2
+     */
     @Override
     public void ColisionDetected(Rectangle e1, Rectangle e2) {
         if (e2 instanceof Tijolo) {
@@ -207,15 +278,19 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         repaint();
     }
 
+    /**
+     *
+     * @param g
+     */
     @Override
-    protected void paintComponent(Graphics grphcs) {
-        Graphics2D g = (Graphics2D) grphcs;
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
         if (ativo) {
             for (Tijolo t : tijolos) {
-                t.Paint(g);
+                t.Paint(g2);
             }
-            raquete.Paint(g);
-            bola.Paint(g);
+            raquete.Paint(g2);
+            bola.Paint(g2);
         }
     }
 
