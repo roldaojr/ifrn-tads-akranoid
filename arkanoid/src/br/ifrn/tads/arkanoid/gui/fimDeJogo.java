@@ -72,7 +72,7 @@ public class fimDeJogo extends javax.swing.JPanel {
 
         imgTelaInicial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg"))); // NOI18N
         imgTelaInicial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        add(imgTelaInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 539));
+        add(imgTelaInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, 920, 540));
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSimActionPerformed

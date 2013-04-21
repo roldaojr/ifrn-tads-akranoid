@@ -129,7 +129,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
         Vidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Vidas.setText("LIFE - ");
-        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 313, 70, 30));
+        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 313, 170, 30));
 
         Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Arkanoid.png"))); // NOI18N
         Slogan.setText("jLabel2");
