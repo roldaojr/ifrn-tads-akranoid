@@ -1,6 +1,5 @@
 package br.ifrn.tads.arkanoid.jogo;
 
-import br.ifrn.tads.arkanoid.jogo.eventos.ColisionListener;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

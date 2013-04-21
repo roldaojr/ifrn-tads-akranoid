@@ -73,7 +73,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         cenaDeJogo = new br.ifrn.tads.arkanoid.jogo.CenaDeJogo();
         JpanelMenu = new javax.swing.JPanel();
         pontos = new javax.swing.JLabel();
-        nivel = new javax.swing.JLabel();
         tempo = new javax.swing.JLabel();
         Vidas = new javax.swing.JLabel();
         Slogan = new javax.swing.JLabel();
@@ -140,17 +139,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pontos.setToolTipText("");
         JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, -1));
 
-        nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        nivel.setForeground(new java.awt.Color(255, 255, 0));
-        nivel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        nivel.setText("LEVEL - ");
-        JpanelMenu.add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 170, 30));
-
         tempo.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         tempo.setForeground(new java.awt.Color(255, 255, 0));
         tempo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         tempo.setText("TEMPO -");
-        JpanelMenu.add(tempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 170, 30));
+        JpanelMenu.add(tempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 190, 30));
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
@@ -311,7 +304,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void atualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
         pontos.setText("SCORE - " + jogo.getEstado().getPontos());
-        nivel.setText("LEVEL - " + jogo.getEstado().getNivel());
         Vidas.setText("LIFES - " + jogo.getEstado().getVidas());
     }
 
@@ -432,7 +424,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuItem miSalvarJogo;
     private javax.swing.JMenuItem miTerminarJogo;
-    private javax.swing.JLabel nivel;
     private javax.swing.JLabel pontos;
     private javax.swing.JLabel tempo;
     // End of variables declaration//GEN-END:variables
