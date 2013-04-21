@@ -2,6 +2,7 @@ package br.ifrn.tads.arkanoid.gui;
 
 import br.ifrn.tads.arkanoid.jogo.CenaDeJogo;
 import br.ifrn.tads.arkanoid.jogo.ControleDeJogo;
+import br.ifrn.tads.arkanoid.jogo.Pontuacao;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,15 +10,18 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 
 /**
+ * Janela principal de jogo
  *
- * @author Roldão
+ * @author Júnior Lucena
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
 
-    ControleDeJogo jogo;
+    private final ControleDeJogo jogo;
+    private final Timer atualizarTempo;
 
     /**
      * Creates new form JanelaPrincipal
@@ -36,8 +40,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 fimDeJogoActionPerformed(ae);
+                atualizarTempo.stop();
             }
         });
+        atualizarTempo = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                atualizarTempoActionPerformed(ae);
+            }
+        });
+        atualizarTempo.start();
     }
 
     /**
@@ -61,7 +73,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         cenaDeJogo = new br.ifrn.tads.arkanoid.jogo.CenaDeJogo();
         JpanelMenu = new javax.swing.JPanel();
         pontos = new javax.swing.JLabel();
-        Nivel = new javax.swing.JLabel();
+        nivel = new javax.swing.JLabel();
+        tempo = new javax.swing.JLabel();
         Vidas = new javax.swing.JLabel();
         Slogan = new javax.swing.JLabel();
         imgNivel = new javax.swing.JLabel();
@@ -77,6 +90,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         miSalvarJogo = new javax.swing.JMenuItem();
         miPausar = new javax.swing.JMenuItem();
         miTerminarJogo = new javax.swing.JMenuItem();
+        miPontuacoes = new javax.swing.JMenuItem();
         miSair = new javax.swing.JMenuItem();
 
         jMenu2.setText("File");
@@ -126,11 +140,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pontos.setToolTipText("");
         JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, -1));
 
-        Nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        Nivel.setForeground(new java.awt.Color(255, 255, 0));
-        Nivel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Nivel.setText("LEVEL - ");
-        JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 170, 30));
+        nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        nivel.setForeground(new java.awt.Color(255, 255, 0));
+        nivel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        nivel.setText("LEVEL - ");
+        JpanelMenu.add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 170, 30));
+
+        tempo.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        tempo.setForeground(new java.awt.Color(255, 255, 0));
+        tempo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        tempo.setText("TEMPO -");
+        JpanelMenu.add(tempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 170, 30));
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
@@ -220,7 +240,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(miSalvarJogo);
 
-        miPausar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        miPausar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
         miPausar.setText("Pausar");
         miPausar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,6 +258,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(miTerminarJogo);
 
+        miPontuacoes.setText("Pontuações");
+        miPontuacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPontuacoesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miPontuacoes);
+
         miSair.setText("Sair");
         miSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,13 +282,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fimDeJogoActionPerformed(java.awt.event.ActionEvent evt) {
+        String nome = JOptionPane.showInputDialog(this, "Digite seu nome", "");
+        Pontuacao.AdicionarPontuacao(new Pontuacao(nome, jogo.getEstado().getPontos()));
         String mensagem = "";
-        if(jogo.getEstado().getTijolos().isEmpty()) {
-            mensagem = "Você venceu! ";
-        } else if(jogo.getEstado().getVidas() == 0) {
-            mensagem = "Você perdeu! ";
+        if (jogo.getEstado().getTijolos().isEmpty()) {
+            mensagem = "Parabéns, você venceu! ";
+        } else if (jogo.getEstado().getVidas() == 0) {
+            mensagem = "Que pena, você perdeu! ";
         }
-        int result = JOptionPane.showConfirmDialog(null, mensagem+"Deseja jogar novamente?", "Fim de jogo", 0);
+        int result = JOptionPane.showConfirmDialog(this, mensagem + "Deseja jogar novamente?", "Fim de jogo", 0);
         if (result == JOptionPane.YES_OPTION) {
             miNovoJogoActionPerformed(evt);
         } else {
@@ -268,9 +298,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         }
     }
 
+    private void atualizarTempoActionPerformed(java.awt.event.ActionEvent evt) {
+        if (jogo.getEstado() != null) {
+            long segundos = jogo.getEstado().getTempo();
+            long horas = segundos/3600;
+            segundos = segundos % 3600;
+            long minutos = segundos / 60;
+            segundos = segundos % 60;
+            tempo.setText(String.format("TEMPO - %02d:%02d:%02d", horas, minutos, segundos));
+        }
+    }
+
     private void atualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
         pontos.setText("SCORE - " + jogo.getEstado().getPontos());
-        Nivel.setText("LEVEL - " + jogo.getEstado().getNivel());
+        nivel.setText("LEVEL - " + jogo.getEstado().getNivel());
         Vidas.setText("LIFES - " + jogo.getEstado().getVidas());
     }
 
@@ -316,6 +357,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_miSalvarJogoActionPerformed
 
+    private void miPontuacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPontuacoesActionPerformed
+        String texto = "";
+        for(Pontuacao p: Pontuacao.LerPontuacoes()) {
+            texto += String.format("%s\t%d\n", p.getNome(), p.getPontos());
+        }
+        JOptionPane.showMessageDialog(this, texto, "Melhores pontuações", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_miPontuacoesActionPerformed
+
     private void miPausarActionPerformed(java.awt.event.ActionEvent evt) {
         if (jogo.EmPausa()) {
             getContentPane().setCursor(blankCursor());
@@ -348,6 +397,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new JanelaPrincipal().setVisible(true);
             }
@@ -355,7 +405,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelMenu;
-    private javax.swing.JLabel Nivel;
     private javax.swing.JLabel Slogan;
     private javax.swing.JLabel Vidas;
     private javax.swing.JPanel backPanel;
@@ -379,9 +428,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miCarregarJogo;
     private javax.swing.JMenuItem miNovoJogo;
     private javax.swing.JMenuItem miPausar;
+    private javax.swing.JMenuItem miPontuacoes;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuItem miSalvarJogo;
     private javax.swing.JMenuItem miTerminarJogo;
+    private javax.swing.JLabel nivel;
     private javax.swing.JLabel pontos;
+    private javax.swing.JLabel tempo;
     // End of variables declaration//GEN-END:variables
 }

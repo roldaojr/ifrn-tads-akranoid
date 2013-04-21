@@ -20,7 +20,7 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     private EstadoDeJogo estado;
     private boolean ativo;
     private CenaDeJogo cena;
-    private Timer atualizaTimer;
+    private Timer atualizaCena;
     private List<ActionListener> atualizarEstadoListeners;
     private List<ActionListener> fimDeJogoListeners;
     private long tempoInicial;
@@ -33,12 +33,13 @@ public class ControleDeJogo implements Serializable, ColisionListener {
     public ControleDeJogo(CenaDeJogo c) {
         cena = c;
         cena.addColisionListener(this);
-        atualizaTimer = new Timer(atualiza_ms, new ActionListener() {
+        atualizaCena = new Timer(atualiza_ms, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                long diff = System.currentTimeMillis()/1000 - tempoInicial;
-                estado.setTempo(estado.getTempo()+diff);
-                cena.atualizarJogo();
+                cena.atualizarCena();
+                long tempoAtual = System.currentTimeMillis()/1000;
+                estado.setTempo(estado.getTempo()+tempoAtual - tempoInicial);
+                tempoInicial = tempoAtual;
             }
         });
         atualizarEstadoListeners = new ArrayList<>();
@@ -76,7 +77,7 @@ public class ControleDeJogo implements Serializable, ColisionListener {
         tempoInicial = System.currentTimeMillis()/1000;
         fireAtualizarEstadoEvent();
         if (!pausado) {
-            atualizaTimer.start();
+            atualizaCena.start();
         }
     }
 
@@ -91,7 +92,7 @@ public class ControleDeJogo implements Serializable, ColisionListener {
      * Terminar o jogo em execução.
      */
     public void TerminarJogo() {
-        atualizaTimer.stop();
+        atualizaCena.stop();
         cena.RedefinirEstado();
         cena.setAtivo(false);
         ativo = false;
@@ -112,14 +113,14 @@ public class ControleDeJogo implements Serializable, ColisionListener {
      * @return true se o jogo estiver em pausa, false caso contrário.
      */
     public boolean EmPausa() {
-        return !atualizaTimer.isRunning();
+        return !atualizaCena.isRunning();
     }
 
     /**
      * Pausar o jogo ativo.
      */
     public void PausarJogo() {
-        atualizaTimer.stop();
+        atualizaCena.stop();
     }
 
     /**
@@ -127,7 +128,7 @@ public class ControleDeJogo implements Serializable, ColisionListener {
      */
     public void ContinuarJogo() {
         tempoInicial = System.currentTimeMillis()/1000;
-        atualizaTimer.start();
+        atualizaCena.start();
     }
 
     /**
@@ -148,13 +149,13 @@ public class ControleDeJogo implements Serializable, ColisionListener {
             //escreve todos os dados
             out.writeObject(estado);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println("Erro ao salvar o jogo: "+ex.getMessage());
         } finally {
             try {
                 arq.close();
                 out.close();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                System.out.println("Erro ao salvar o jogo: "+ex.getMessage());
             }
         }
     }
@@ -179,16 +180,14 @@ public class ControleDeJogo implements Serializable, ColisionListener {
             //recupera os dados
             estado = (EstadoDeJogo) in.readObject();
             cena.setTijolos(estado.getTijolos());
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println("Erro ao carregar o jogo: "+ex.getMessage());
         } finally {
             try {
                 arqLeitura.close();
                 in.close();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                System.out.println("Erro ao carregar o jogo: "+ex.getMessage());
             }
         }
         fireAtualizarEstadoEvent();

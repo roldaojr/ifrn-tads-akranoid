@@ -12,7 +12,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 /**
- *
+ * Painel onde será desenhado o jogo
  * @author Roldão
  */
 public class CenaDeJogo extends JPanel implements ColisionListener {
@@ -29,7 +29,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     private Rectangle paredeInferior;
 
     /**
-     *
+     * Construir uma nova cena de jogo
      */
     public CenaDeJogo() {
         super();
@@ -43,15 +43,15 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
-     * @return
+     * Verificar se a cena está ativa
+     * @return true de estiver ativo, false caso contrário
      */
     public boolean isAtivo() {
         return ativo;
     }
 
     /**
-     *
+     * Definir estado de ativo da cena.
      * @param ativo
      */
     public void setAtivo(boolean ativo) {
@@ -60,7 +60,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Acessar a lista de tijolos a serem desenhados na tela.
      * @return
      */
     public List<Tijolo> getTijolos() {
@@ -68,7 +68,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Acessar a instancia da raquete
      * @return
      */
     public Raquete getRaquete() {
@@ -76,7 +76,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Acessr a instancia da bola.
      * @return
      */
     public Bola getBola() {
@@ -84,7 +84,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Definir a instancia da bola.
      * @param bola
      */
     public void setBola(Bola bola) {
@@ -92,7 +92,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Definir a instancia da raquete.
      * @param raquete
      */
     public void setRaquete(Raquete raquete) {
@@ -100,7 +100,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Definir a lista de tijolos.
      * @param tijolos
      */
     public void setTijolos(List<Tijolo> tijolos) {
@@ -108,23 +108,23 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Acessar o retangulo referente ao lado esquerdo da tela.
      * @return
      */
-    public Rectangle getParedeEsquerda() {
+    public final Rectangle getParedeEsquerda() {
         return paredeEsquerda;
     }
 
     /**
-     *
+     * Acessar o retangulo referente ao lado direito da tela.
      * @return
      */
-    public Rectangle getParedeDireita() {
+    public final Rectangle getParedeDireita() {
         return paredeDireita;
     }
 
     /**
-     *
+     * Acessar o retangulo referente ao parte suprior da tela
      * @return
      */
     public Rectangle getParedeSuperior() {
@@ -132,13 +132,16 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Acessar o retangulo referente ao parte inferior da tela
      * @return
      */
     public Rectangle getParedeInferior() {
         return paredeInferior;
     }
 
+    /*
+     * Define os tijolos para o estado inicial.
+     */
     private void RedefinirTijolos() {
         tijolos.clear();
         int left = (getWidth() - Tijolo.largura * 10) / 2;
@@ -151,10 +154,16 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         }
     }
 
+    /*
+     * Define a raqute para o estado inicial
+     */
     private void RedefinirRaquete() {
         raquete.x = 0;
     }
 
+    /*
+     * Define a bola para o estado inicial
+     */
     void RedefinirBola() {
         bola.setVelocidade(0);
         bola.x = (int) (raquete.x + (raquete.getWidth() / 2) - (bola.getWidth() / 2));
@@ -162,7 +171,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Redefine o estado dos elementos da tela.
      */
     public void RedefinirEstado() {
         RedefinirTijolos();
@@ -171,8 +180,8 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
-     * @param evt
+     * Adicionar listenar para o evento de colisao
+     * @param evt listener
      */
     synchronized final public void addColisionListener(ColisionListener evt) {
         if (colisionListeners == null) {
@@ -182,8 +191,8 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
-     * @param evt
+     * Remover listenar para o evento de colisao
+     * @param evt listener
      */
     synchronized final public void removeColisionListener(ColisionListener evt) {
         if (colisionListeners != null) {
@@ -192,9 +201,9 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
-     * @param e1
-     * @param e2
+     * Detecção de colisão entre elementos da tela (chamado pelo evento ColisionEvent).
+     * @param e1 Elmemto que colidiu
+     * @param e2 Elmento com o qual o e1 colidiu
      */
     @Override
     public void ColisionDetected(Rectangle e1, Rectangle e2) {
@@ -218,6 +227,9 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         }
     }
 
+    /*
+     * Caltula posições do elementos da tela e verifica se houve colisão.
+     */
     private void TesteColisao() {
         if (paredeEsquerda == null) {
             paredeEsquerda = new Rectangle(-20, 0, 20, getHeight());
@@ -233,30 +245,35 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         }
         // Paredes da tela
         if (bola.intersects(paredeEsquerda)) {
-            chamarEventoColisao(bola, paredeEsquerda);
+            fireColisionEvent(bola, paredeEsquerda);
         }
         if (bola.intersects(paredeDireita)) {
-            chamarEventoColisao(bola, paredeDireita);
+            fireColisionEvent(bola, paredeDireita);
         }
         if (bola.intersects(paredeSuperior)) {
-            chamarEventoColisao(bola, paredeSuperior);
+            fireColisionEvent(bola, paredeSuperior);
         }
         if (bola.intersects(paredeInferior)) {
-            chamarEventoColisao(bola, paredeInferior);
+            fireColisionEvent(bola, paredeInferior);
         }
         // Tijolos
         for (Tijolo t : tijolos) {
             if (bola.intersects(t)) {
-                chamarEventoColisao(bola, t);
+                fireColisionEvent(bola, t);
             }
         }
         // Bola
         if (bola.intersects(raquete)) {
-            chamarEventoColisao(bola, raquete);
+            fireColisionEvent(bola, raquete);
         }
     }
 
-    private void chamarEventoColisao(Rectangle e1, Rectangle e2) {
+    /*
+     * Chamar o evento Colision
+     * @param e1 Elmemto que colidiu
+     * @param e2 Elmento com o qual o e1 colidiu
+     */
+    private void fireColisionEvent(Rectangle e1, Rectangle e2) {
         ColisionDetected(e1, e2);
         synchronized (this) {
             List<ColisionListener> targets = new ArrayList<>(colisionListeners);
@@ -266,7 +283,10 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         }
     }
 
-    void atualizarJogo() {
+    /*
+     * Atualizar elementos da tela de jogo.
+     */
+    void atualizarCena() {
         tijolos.removeAll(tijolosRemovidos);
         tijolosRemovidos.clear();
         if (bola.getVelocidade() > 0) {
@@ -279,7 +299,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     }
 
     /**
-     *
+     * Desenha os elementos da cena de jogo na tela.
      * @param g
      */
     @Override
@@ -294,6 +314,9 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         }
     }
 
+    /*
+     * Captura eventos do mouse.
+     */
     private class MouseEventos extends MouseAdapter {
 
         @Override
