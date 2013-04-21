@@ -6,31 +6,36 @@ package br.ifrn.tads.arkanoid.gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import javax.swing.ImageIcon;
 
 /**
- *
+ * JPanel com imagem de fundo
  * @author Júnior Lucena
  */
-public class NewJPanel extends javax.swing.JPanel {
-    private final Image backgroundImage;
+public class BackgroundPanel extends javax.swing.JPanel {
+    private Image backgroundImage;
 
     /**
-     * Creates new form NewJPanel
+     * Creates new form BackgroundPanel
      */
-    public NewJPanel() {
+    public BackgroundPanel() {
         initComponents();
-        backgroundImage = new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage();
+    }
+
+    public Image getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(Image backgroundImage) {
+        this.backgroundImage = backgroundImage;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-        g.drawImage(backgroundImage, 0, 0, null);
+        super.paintComponent(g);
+        if(backgroundImage instanceof Image)
+            g.drawImage(backgroundImage, 0, 0, null);
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

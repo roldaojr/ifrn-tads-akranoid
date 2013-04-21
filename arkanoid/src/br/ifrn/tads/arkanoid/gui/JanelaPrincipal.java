@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ifrn.tads.arkanoid.gui;
 
 import br.ifrn.tads.arkanoid.jogo.CenaDeJogo;
@@ -10,7 +6,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -25,7 +24,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      */
     public JanelaPrincipal() {
         initComponents();
-        setLocationRelativeTo(null);
+        ((BackgroundPanel) backPanel).setBackgroundImage(new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage());
         jogo = new ControleDeJogo((CenaDeJogo) cenaDeJogo);
         jogo.addAtualizarEstadoListener(new ActionListener() {
             @Override
@@ -36,7 +35,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jogo.addFimDeJogoListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                setCursor(Cursor.getDefaultCursor());
+                fimDeJogoActionPerformed(ae);
             }
         });
     }
@@ -58,7 +57,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        backPanel = new NewJPanel();
+        backPanel = new br.ifrn.tads.arkanoid.gui.BackgroundPanel();
         cenaDeJogo = new br.ifrn.tads.arkanoid.jogo.CenaDeJogo();
         JpanelMenu = new javax.swing.JPanel();
         pontos = new javax.swing.JLabel();
@@ -137,7 +136,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
         Vidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Vidas.setText("LIFE - ");
-        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 313, 70, 30));
+        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 313, 170, 30));
 
         Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Arkanoid.png"))); // NOI18N
         Slogan.setText("jLabel2");
@@ -254,6 +253,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fimDeJogoActionPerformed(java.awt.event.ActionEvent evt) {
+        String mensagem = "";
+        if(jogo.getEstado().getTijolos().isEmpty()) {
+            mensagem = "Você venceu! ";
+        } else if(jogo.getEstado().getVidas() == 0) {
+            mensagem = "Você perdeu! ";
+        }
+        int result = JOptionPane.showConfirmDialog(null, mensagem+"Deseja jogar novamente?", "Fim de jogo", 0);
+        if (result == JOptionPane.YES_OPTION) {
+            miNovoJogoActionPerformed(evt);
+        } else {
+            miTerminarJogoActionPerformed(evt);
+        }
+    }
+
     private void atualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
         pontos.setText("SCORE - " + jogo.getEstado().getPontos());
         Nivel.setText("LEVEL - " + jogo.getEstado().getNivel());
@@ -324,6 +338,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /* Set the System look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        try {
+            javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
