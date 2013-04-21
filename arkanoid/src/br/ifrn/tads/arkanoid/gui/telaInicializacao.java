@@ -22,10 +22,7 @@ public class telaInicializacao extends javax.swing.JFrame {
 
     }
 
-    private void fecharFrame() {
-       //new telaInicializacao().setVisible(false);
-       //System.exit(0);
-       // setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    private void imgAnimada(){
         
     }
 
@@ -46,6 +43,7 @@ public class telaInicializacao extends javax.swing.JFrame {
         setName("frameInicializacao"); // NOI18N
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         chamarJanela.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         chamarJanela.setText("Jogar");
@@ -54,26 +52,11 @@ public class telaInicializacao extends javax.swing.JFrame {
                 chamarJanelaActionPerformed(evt);
             }
         });
+        getContentPane().add(chamarJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
 
         imgAnimada.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         imgAnimada.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(295, 295, 295)
-                .addComponent(chamarJanela))
-            .addComponent(imgAnimada, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(211, 211, 211)
-                .addComponent(chamarJanela))
-            .addComponent(imgAnimada, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(imgAnimada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
