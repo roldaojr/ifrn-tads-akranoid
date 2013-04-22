@@ -4,46 +4,42 @@
  */
 package br.ifrn.tads.arkanoid.gui;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import javax.swing.JFrame;
+
 
 /**
  *
  * @author Júnior Lucena
  */
-public class telaInicializacao extends javax.swing.JFrame {
-
-    /**
-     * Creates new form telaInicializacao
-     */
-    public telaInicializacao() {
+public class TelaInicializacao extends JFrame {
         
+    /**
+     * Creates new form TelaInicializacao
+     */
+    public TelaInicializacao() {
         initComponents();
         setLocationRelativeTo(null);
-
     }
-
-    private void imgAnimada(){
-        
-    }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        javax.swing.JPanel ApoioAnimacao = new javax.swing.JPanel();
         chamarJanela = new javax.swing.JButton();
-        imgAnimada = new javax.swing.JLabel();
+        imgAnimacao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AnimacaoJFrame");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setFocusCycleRoot(false);
-        setFocusable(false);
-        setFocusableWindowState(false);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setModalExclusionType(null);
         setName("frameInicializacao"); // NOI18N
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ApoioAnimacao.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         chamarJanela.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         chamarJanela.setText("Jogar");
@@ -52,19 +48,21 @@ public class telaInicializacao extends javax.swing.JFrame {
                 chamarJanelaActionPerformed(evt);
             }
         });
-        getContentPane().add(chamarJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
+        ApoioAnimacao.add(chamarJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, -1, -1));
 
-        imgAnimada.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        imgAnimada.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(imgAnimada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 480));
+        imgAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/gif.gif"))); // NOI18N
+        imgAnimacao.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
+        imgAnimacao.setOpaque(true);
+        ApoioAnimacao.add(imgAnimacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 478));
+
+        getContentPane().add(ApoioAnimacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void chamarJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chamarJanelaActionPerformed
         new JanelaPrincipal().setVisible(true);
-        //setDefaultCloseOperation(telaInicializacao.EXIT_ON_CLOSE);
-        setVisible(false);
+        dispose();
     }//GEN-LAST:event_chamarJanelaActionPerformed
 
     /**
@@ -84,25 +82,25 @@ public class telaInicializacao extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaInicializacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicializacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaInicializacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicializacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaInicializacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicializacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaInicializacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicializacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaInicializacao().setVisible(true);
+                new TelaInicializacao().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chamarJanela;
-    private javax.swing.JLabel imgAnimada;
+    private javax.swing.JLabel imgAnimacao;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,13 +12,13 @@ import javax.swing.ImageIcon;
  *
  * @author Júnior Lucena
  */
-public class NewJPanel extends javax.swing.JPanel {
+public class ImgPrincipal extends javax.swing.JPanel {
     private final Image backgroundImage;
 
     /**
-     * Creates new form NewJPanel
+     * Creates new form ImgPrincipal
      */
-    public NewJPanel() {
+    public ImgPrincipal() {
         initComponents();
         backgroundImage = new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage();
     }

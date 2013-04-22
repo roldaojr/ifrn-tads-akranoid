@@ -58,7 +58,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        backPanel = new NewJPanel();
+        backPanel = new ImgPrincipal();
         cenaDeJogo = new br.ifrn.tads.arkanoid.jogo.CenaDeJogo();
         JpanelMenu = new javax.swing.JPanel();
         pontos = new javax.swing.JLabel();
@@ -123,20 +123,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pontos.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         pontos.setForeground(new java.awt.Color(255, 255, 0));
         pontos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pontos.setText("SCORE - ");
+        pontos.setText("PONTOS - ");
         pontos.setToolTipText("");
         JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, -1));
 
         Nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Nivel.setForeground(new java.awt.Color(255, 255, 0));
         Nivel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Nivel.setText("LEVEL - ");
+        Nivel.setText("NÍVEL - ");
         JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 170, 30));
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
         Vidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Vidas.setText("LIFE - ");
+        Vidas.setText("VIDAS - ");
         JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 313, 170, 30));
 
         Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Arkanoid.png"))); // NOI18N
@@ -157,7 +157,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel1.setText("By:");
+        jLabel1.setText("Por:");
         JpanelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 30, -1));
 
         jLabel2.setFont(new java.awt.Font("Verdana", 2, 12)); // NOI18N
@@ -255,9 +255,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
-        pontos.setText("SCORE - " + jogo.getEstado().getPontos());
-        Nivel.setText("LEVEL - " + jogo.getEstado().getNivel());
-        Vidas.setText("LIFES - " + jogo.getEstado().getVidas());
+        pontos.setText("PONTOS - " + jogo.getEstado().getPontos());
+        Nivel.setText("NÍVEL - " + jogo.getEstado().getNivel());
+        Vidas.setText("VIDAS - " + jogo.getEstado().getVidas());
     }
 
     private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
