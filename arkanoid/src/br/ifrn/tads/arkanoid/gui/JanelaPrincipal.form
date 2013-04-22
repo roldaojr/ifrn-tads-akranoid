@@ -139,6 +139,7 @@
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -160,11 +161,7 @@
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
-<<<<<<< HEAD
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.ifrn.tads.arkanoid.gui.ImgPrincipal()"/>
-=======
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.ifrn.tads.arkanoid.gui.BackgroundPanel()"/>
->>>>>>> 9d699b5521b7697e003852a60d29854ee8c5a85b
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -268,11 +265,7 @@
                   <Color blue="0" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-<<<<<<< HEAD
-                <Property name="text" type="java.lang.String" value="N&#xcd;VEL - "/>
-=======
                 <Property name="text" type="java.lang.String" value="TEMPO -"/>
->>>>>>> 9d699b5521b7697e003852a60d29854ee8c5a85b
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

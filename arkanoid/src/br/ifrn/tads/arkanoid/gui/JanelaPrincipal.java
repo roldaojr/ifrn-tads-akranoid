@@ -28,7 +28,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      */
     public JanelaPrincipal() {
         initComponents();
-        ((BackgroundPanel) backPanel).setBackgroundImage(new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage());
+        //((BackgroundPanel) backPanel).setBackgroundImage(new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage());
         jogo = new ControleDeJogo((CenaDeJogo) cenaDeJogo);
         jogo.addAtualizarEstadoListener(new ActionListener() {
             @Override
@@ -69,11 +69,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-<<<<<<< HEAD
         backPanel = new ImgPrincipal();
-=======
-        backPanel = new br.ifrn.tads.arkanoid.gui.BackgroundPanel();
->>>>>>> 9d699b5521b7697e003852a60d29854ee8c5a85b
         cenaDeJogo = new br.ifrn.tads.arkanoid.jogo.CenaDeJogo();
         JpanelMenu = new javax.swing.JPanel();
         pontos = new javax.swing.JLabel();
@@ -143,19 +139,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pontos.setToolTipText("");
         JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, -1));
 
-<<<<<<< HEAD
-        Nivel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        Nivel.setForeground(new java.awt.Color(255, 255, 0));
-        Nivel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Nivel.setText("NÍVEL - ");
-        JpanelMenu.add(Nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 170, 30));
-=======
         tempo.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         tempo.setForeground(new java.awt.Color(255, 255, 0));
         tempo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         tempo.setText("TEMPO -");
         JpanelMenu.add(tempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 190, 30));
->>>>>>> 9d699b5521b7697e003852a60d29854ee8c5a85b
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
@@ -315,14 +303,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
 
     private void atualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
-<<<<<<< HEAD
-        pontos.setText("PONTOS - " + jogo.getEstado().getPontos());
-        Nivel.setText("NÍVEL - " + jogo.getEstado().getNivel());
-        Vidas.setText("VIDAS - " + jogo.getEstado().getVidas());
-=======
         pontos.setText("SCORE - " + jogo.getEstado().getPontos());
         Vidas.setText("LIFES - " + jogo.getEstado().getVidas());
->>>>>>> 9d699b5521b7697e003852a60d29854ee8c5a85b
     }
 
     private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
