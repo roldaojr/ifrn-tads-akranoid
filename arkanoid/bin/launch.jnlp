@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>arkanoid</title>
+        <vendor>Proprio</vendor>
+        <homepage href=""/>
+        <description>arkanoid</description>
+        <description kind="short">arkanoid</description>
+        
+        
+    </information>
+    <update check="always"/>
+    <security>
+<all-permissions/>
+</security>
+    <resources>
+        <j2se version="1.7+"/>
+        <jar href="arkanoid.jar" main="true"/>
+        
+        
+    <jar href="lib/beansbinding-1.2.1.jar"/>
+<jar href="lib/AbsoluteLayout.jar"/>
+</resources>
+    <application-desc main-class="br.ifrn.tads.arkanoid.gui.TelaInicializacao">
+        
+    </application-desc>
+</jnlp>
