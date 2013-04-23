@@ -144,14 +144,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         imgNivel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         imgNivel.setText("jLabel1");
-        JpanelMenu.add(imgNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 200, -1));
+        JpanelMenu.add(imgNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 210, -1));
 
         imgpontos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
-        JpanelMenu.add(imgpontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 200, -1));
+        JpanelMenu.add(imgpontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 210, -1));
 
         imgVidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         imgVidas.setText("jLabel4");
-        JpanelMenu.add(imgVidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 200, -1));
+        JpanelMenu.add(imgVidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 210, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 0));
@@ -165,7 +165,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         creditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
         creditos.setText("jLabel6");
-        JpanelMenu.add(creditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 200, 80));
+        JpanelMenu.add(creditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 210, 80));
 
         javax.swing.GroupLayout backPanelLayout = new javax.swing.GroupLayout(backPanel);
         backPanel.setLayout(backPanelLayout);
