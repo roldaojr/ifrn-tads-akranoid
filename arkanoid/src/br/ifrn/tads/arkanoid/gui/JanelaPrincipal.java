@@ -31,12 +31,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
         initComponents();
         setLocationRelativeTo(null);
-<<<<<<< HEAD
-        
-        //Atualização do Estado do Jogo
-=======
         ((BackgroundPanel) backPanel).setBackgroundImage(new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage());
->>>>>>> 1d5f091d54c7b1be7837239b318938aec4359b3e
         jogo = new ControleDeJogo((CenaDeJogo) cenaDeJogo);
         jogo.addAtualizarEstadoListener(new ActionListener() {
             @Override
