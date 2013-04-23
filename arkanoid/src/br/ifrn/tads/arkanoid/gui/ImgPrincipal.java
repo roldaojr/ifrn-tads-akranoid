@@ -16,14 +16,18 @@ public class ImgPrincipal extends javax.swing.JPanel {
     private final Image backgroundImage;
 
     /**
-     * Creates new form ImgPrincipal
+     * Recebendo a Imagem Background
      */
+    
     public ImgPrincipal() {
         initComponents();
         backgroundImage = new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage();
     }
 
     @Override
+    
+    //Método de Pintar a Imagem;
+    
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         g.drawImage(backgroundImage, 0, 0, null);

@@ -18,6 +18,8 @@ public class TelaInicializacao extends JFrame {
      */
     public TelaInicializacao() {
         initComponents();
+        
+        //Deixar Janela centralizada ao Abrir
         setLocationRelativeTo(null);
     }
     
@@ -59,7 +61,8 @@ public class TelaInicializacao extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//Metodo do Botaão Jogar!
+    
     private void chamarJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chamarJanelaActionPerformed
         new JanelaPrincipal().setVisible(true);
         dispose();

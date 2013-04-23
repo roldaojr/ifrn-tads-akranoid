@@ -26,9 +26,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form JanelaPrincipal
      */
+    
+    //Construtor
+    
     public JanelaPrincipal() {
         initComponents();
-        //((BackgroundPanel) backPanel).setBackgroundImage(new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage());
+        setLocationRelativeTo(null);
+        
+        //Atualização do Estado do Jogo
         jogo = new ControleDeJogo((CenaDeJogo) cenaDeJogo);
         jogo.addAtualizarEstadoListener(new ActionListener() {
             @Override
@@ -36,6 +41,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 atualizarEstadoActionPerformed(ae);
             }
         });
+        // Fim de jogo
         jogo.addFimDeJogoListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -43,6 +49,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 atualizarTempo.stop();
             }
         });
+        // Atualiza contador de tempo\
         atualizarTempo = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
