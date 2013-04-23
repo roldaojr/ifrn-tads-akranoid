@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import javax.swing.UIManager;
 
 /**
  * Janela principal de jogo
@@ -32,8 +31,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
         initComponents();
         setLocationRelativeTo(null);
+<<<<<<< HEAD
         
         //Atualização do Estado do Jogo
+=======
+        ((BackgroundPanel) backPanel).setBackgroundImage(new ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/papel-de-parede.jpg")).getImage());
+>>>>>>> 1d5f091d54c7b1be7837239b318938aec4359b3e
         jogo = new ControleDeJogo((CenaDeJogo) cenaDeJogo);
         jogo.addAtualizarEstadoListener(new ActionListener() {
             @Override
@@ -68,15 +71,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jColorChooser1 = new javax.swing.JColorChooser();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jTextField1 = new javax.swing.JTextField();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        backPanel = new ImgPrincipal();
+        backPanel = new br.ifrn.tads.arkanoid.gui.BackgroundPanel();
         cenaDeJogo = new br.ifrn.tads.arkanoid.jogo.CenaDeJogo();
         JpanelMenu = new javax.swing.JPanel();
         pontos = new javax.swing.JLabel();
@@ -99,26 +94,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         miPontuacoes = new javax.swing.JMenuItem();
         miSair = new javax.swing.JMenuItem();
 
-        jMenu2.setText("File");
-        jMenuBar2.add(jMenu2);
-
-        jMenu3.setText("Edit");
-        jMenuBar2.add(jMenu3);
-
-        jTextField1.setText("jTextField1");
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
-
-        jMenuItem1.setText("jMenuItem1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Arkanoid");
         setName("frame"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(950, 590));
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
         backPanel.setOpaque(false);
+        backPanel.setRequestFocusEnabled(false);
 
         cenaDeJogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         cenaDeJogo.setOpaque(false);
@@ -144,19 +128,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pontos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         pontos.setText("PONTOS - ");
         pontos.setToolTipText("");
-        JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, -1));
+        JpanelMenu.add(pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 180, 50));
 
         tempo.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         tempo.setForeground(new java.awt.Color(255, 255, 0));
         tempo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         tempo.setText("TEMPO -");
-        JpanelMenu.add(tempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 190, 30));
+        JpanelMenu.add(tempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 180, 50));
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
         Vidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Vidas.setText("VIDAS - ");
-        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 313, 170, 30));
+        JpanelMenu.add(Vidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 303, 180, 50));
 
         Slogan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Arkanoid.png"))); // NOI18N
         Slogan.setText("jLabel2");
@@ -204,7 +188,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(backPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JpanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addComponent(JpanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                     .addComponent(cenaDeJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -359,7 +343,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void miPontuacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPontuacoesActionPerformed
         String texto = "";
         for(Pontuacao p: Pontuacao.LerPontuacoes()) {
-            texto += String.format("%s\t%d\n", p.getNome(), p.getPontos());
+            texto += String.format("%06d  %s\n", p.getPontos(), p.getNome());
         }
         JOptionPane.showMessageDialog(this, texto, "Melhores pontuações", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_miPontuacoesActionPerformed
@@ -382,26 +366,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         return Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the System look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        try {
-            javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new JanelaPrincipal().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelMenu;
     private javax.swing.JLabel Slogan;
@@ -412,18 +376,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel imgNivel;
     private javax.swing.JLabel imgVidas;
     private javax.swing.JLabel imgpontos;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem miCarregarJogo;
     private javax.swing.JMenuItem miNovoJogo;
     private javax.swing.JMenuItem miPausar;
