@@ -129,7 +129,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         tempo.setForeground(new java.awt.Color(255, 255, 0));
         tempo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         tempo.setText("TEMPO -");
-        JpanelMenu.add(tempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 180, 50));
+        JpanelMenu.add(tempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 190, 50));
 
         Vidas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         Vidas.setForeground(new java.awt.Color(255, 255, 0));
@@ -160,7 +160,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Verdana", 2, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel2.setText("Roldão Júnior and Fco Antonio");
+        jLabel2.setText("Roldão Júnior  e  Fco Antonio");
         JpanelMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
 
         creditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ifrn/tads/arkanoid/imagens/Butons.jpg"))); // NOI18N
