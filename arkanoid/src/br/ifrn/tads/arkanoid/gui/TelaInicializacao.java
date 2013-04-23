@@ -54,15 +54,6 @@ public class TelaInicializacao extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-<<<<<<< HEAD
-//Metodo do Botaão Jogar!
-    
-    private void chamarJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chamarJanelaActionPerformed
-        new JanelaPrincipal().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_chamarJanelaActionPerformed
-=======
->>>>>>> 1d5f091d54c7b1be7837239b318938aec4359b3e
 
     /**
      * @param args the command line arguments
