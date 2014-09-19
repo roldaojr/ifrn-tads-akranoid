@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 public class CenaDeJogo extends JPanel implements ColisionListener {
 
     private List<ColisionListener> colisionListeners;
-    private List<Tijolo> tijolos;
+    private TelaComposite tijolos;
     private List<Tijolo> tijolosRemovidos;
     private Raquete raquete;
     private Bola bola;
@@ -34,7 +34,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
         super();
         raquete = new Raquete(-100, -100);
         bola = new Bola(400, 400);
-        tijolos = new ArrayList<>();
+        tijolos = new TelaComposite(0, 0, this.getWidth(), this.getHeight());
         tijolosRemovidos = new ArrayList<>();
         colisionListeners = new ArrayList<>();
         addMouseListener(new MouseEventos());
@@ -56,14 +56,6 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
         repaint();
-    }
-
-    /**
-     * Acessar a lista de tijolos a serem desenhados na tela.
-     * @return
-     */
-    public List<Tijolo> getTijolos() {
-        return tijolos;
     }
 
     /**
@@ -96,14 +88,6 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
      */
     public void setRaquete(Raquete raquete) {
         this.raquete = raquete;
-    }
-
-    /**
-     * Definir a lista de tijolos.
-     * @param tijolos
-     */
-    public void setTijolos(List<Tijolo> tijolos) {
-        this.tijolos = tijolos;
     }
 
     /**
@@ -141,7 +125,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     /*
      * Define os tijolos para o estado inicial.
      */
-    private void RedefinirTijolos() {
+    private void RedefinirTijolos() throws Exception {
         tijolos.clear();
         int left = (getWidth() - Tijolo.largura * 10) / 2;
         for (int i = 0; i < 5; i++) {
@@ -172,7 +156,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     /**
      * Redefine o estado dos elementos da tela.
      */
-    public void RedefinirEstado() {
+    public void RedefinirEstado() throws Exception {
         RedefinirTijolos();
         RedefinirRaquete();
         RedefinirBola();
@@ -256,11 +240,11 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
             fireColisionEvent(bola, paredeInferior);
         }
         // Tijolos
-        for (Tijolo t : tijolos) {
+        /*for (Tijolo t : tijolos) {
             if (bola.intersects(t)) {
                 fireColisionEvent(bola, t);
             }
-        }
+        }*/
         // Bola
         if (bola.intersects(raquete)) {
             fireColisionEvent(bola, raquete);
@@ -285,7 +269,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     /*
      * Atualizar elementos da tela de jogo.
      */
-    void atualizarCena() {
+    void atualizarCena() throws Exception {
         tijolos.removeAll(tijolosRemovidos);
         tijolosRemovidos.clear();
         if (bola.getVelocidade() > 0) {
@@ -305,9 +289,7 @@ public class CenaDeJogo extends JPanel implements ColisionListener {
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         if (ativo) {
-            for (Tijolo t : tijolos) {
-                t.Paint(g2);
-            }
+            tijolos.Paint(g2);
             raquete.Paint(g2);
             bola.Paint(g2);
         }

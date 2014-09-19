@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
  * Bola a ser rebatida pela raquete.
  * @author Roldão
  */
-public class Bola extends ElementoDaTela {
+public class Bola extends TelaComponent {
 
     private int velocidade;
     private int direcaoX;

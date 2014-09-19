@@ -10,7 +10,7 @@ import java.awt.geom.RoundRectangle2D;
  * Raquete que é usada para rebater a bola.
  * @author Roldão
  */
-public class Raquete extends ElementoDaTela {
+public class Raquete extends TelaComponent {
     /**
      * Criar uma nova raquete.
      * @param i Posição horizontal

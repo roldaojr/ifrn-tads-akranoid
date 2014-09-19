@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 
 /**
@@ -35,10 +37,14 @@ public class ControleDeJogo implements Serializable, ColisionListener {
         atualizaCena = new Timer(atualiza_ms, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                cena.atualizarCena();
-                long tempoAtual = System.currentTimeMillis()/1000;
-                estado.setTempo(estado.getTempo()+tempoAtual - tempoInicial);
-                tempoInicial = tempoAtual;
+                try {
+                    cena.atualizarCena();
+                    long tempoAtual = System.currentTimeMillis()/1000;
+                    estado.setTempo(estado.getTempo()+tempoAtual - tempoInicial);
+                    tempoInicial = tempoAtual;
+                } catch (Exception ex) {
+                    Logger.getLogger(ControleDeJogo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         atualizarEstadoListeners = new ArrayList<>();
@@ -69,14 +75,18 @@ public class ControleDeJogo implements Serializable, ColisionListener {
      * @param pausado true para iniciar o jogo pausado, false caso contrário.
      */
     public void IniciarJogo(boolean pausado) {
-        ativo = true;
-        cena.setAtivo(true);
-        cena.RedefinirEstado();
-        estado = new EstadoDeJogo(cena.getTijolos());
-        tempoInicial = System.currentTimeMillis()/1000;
-        fireAtualizarEstadoEvent();
-        if (!pausado) {
-            atualizaCena.start();
+        try {
+            ativo = true;
+            cena.setAtivo(true);
+            cena.RedefinirEstado();
+            estado = new EstadoDeJogo();
+            tempoInicial = System.currentTimeMillis()/1000;
+            fireAtualizarEstadoEvent();
+            if (!pausado) {
+                atualizaCena.start();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ControleDeJogo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -91,10 +101,14 @@ public class ControleDeJogo implements Serializable, ColisionListener {
      * Terminar o jogo em execução.
      */
     public void TerminarJogo() {
-        atualizaCena.stop();
-        cena.RedefinirEstado();
-        cena.setAtivo(false);
-        ativo = false;
+        try {
+            atualizaCena.stop();
+            cena.RedefinirEstado();
+            cena.setAtivo(false);
+            ativo = false;
+        } catch (Exception ex) {
+            Logger.getLogger(ControleDeJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -178,7 +192,7 @@ public class ControleDeJogo implements Serializable, ColisionListener {
             in = new ObjectInputStream(arqLeitura);
             //recupera os dados
             estado = (EstadoDeJogo) in.readObject();
-            cena.setTijolos(estado.getTijolos());
+            //cena.setTijolos(estado.getTijolos());
         } catch (ClassNotFoundException | IOException ex) {
             System.out.println("Erro ao carregar o jogo: "+ex.getMessage());
         } finally {

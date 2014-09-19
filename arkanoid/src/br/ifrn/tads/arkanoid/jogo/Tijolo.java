@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
  * Represemta um tijolo no jogo.
  * @author Roldão
  */
-public class Tijolo extends ElementoDaTela {
+public class Tijolo extends TelaComponent {
     final private Color[] cores = {
         new Color(156,156,156),
         new Color(97,224,0),

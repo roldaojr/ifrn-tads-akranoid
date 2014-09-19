@@ -1,7 +1,6 @@
 package br.ifrn.tads.arkanoid.jogo;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.List;
 
 /**
@@ -18,8 +17,8 @@ public class EstadoDeJogo implements Serializable {
     /**
      * Criar um novo estado do jogo
      */
-    public EstadoDeJogo(List<Tijolo> tj) {
-        tijolos = tj;
+    public EstadoDeJogo() {
+        //tijolos = tj;
         pontos = 0;
         vidas = 3;
         nivel = 1;
